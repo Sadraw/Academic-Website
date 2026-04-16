@@ -1,25 +1,47 @@
-import { styleText } from "util";
+import fs from "fs";
+import path from "path"; 
+import matter from "gray-matter";
 
-export default function PapersPage() {
-    const papers = getAllPapers();
+
+
+export default function PapersPage() { 
+    const dir = path.join(process.cwd(), "content/papers");
+    const files = fs.readdirSync(dir);
+
+    const papers = files.map((file) => {
+        const slug = file.replace(".md", "");
+        const fileContent = fs.readFileSync(path.join(dir, file), "utf8");
+        const {data} = matter(fileContent);
+        
+        return {
+            slug, 
+            title: data.title,
+
+        };
+
+    });
 
     return (
         <main
         style={{
             maxWidth: "750px",
-            margin: "0 auto", 
-            padding: "4rem 1.5rem", 
+            margin: "0 auto",
+            padding: "4rem 1.5rem",
             fontFamily: "serif",
+
+
         }}
         >
-            <h1 style={{ fontSize: "2rem"}}>Papers</h1>
+            <h1>Papers</h1>
+
             <div style={{ marginTop: "2rem"}}>
-                {papers.map((paper: any) => (
-                    <div key={paper.slug} style={{ marginBottom: "1.5rem"}}>
-                        <a href={`/papers/${paper.slug}`} style={{fontSize: "1.5rem"}}>
+                {papers.map((paper) => (
+
+                    <div key={paper.slug} style={{ marginBottom: "1.2rem"}}>
+
+                        <a href="`/papers/$(paper.slug)`">
                         {paper.title}
                         </a>
-                        
                     </div>
                 ))}
             </div>
