@@ -1,4 +1,4 @@
-import {getAllPapers} from "@/lib/papers";
+import { getAllPapers } from "../../lib/papers";
 import { styleText } from "util";
 
 export default function PapersPage() {
