@@ -4,12 +4,27 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-export default async function PaperPage({ params }: any) {
+export default async function PaperPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
   const filePath = path.join(
     process.cwd(),
-    "app/content/papers",
-    `${params.slug}.md`
+    "content/papers",
+    `${slug}.md`
   );
+
+  if (!fs.existsSync(filePath)) {
+    return (
+      <main>
+        <h1>Paper not found</h1>
+        <p>{filePath}</p>
+      </main>
+    );
+  }
 
   const fileContent = fs.readFileSync(filePath, "utf8");
 
@@ -27,16 +42,9 @@ export default async function PaperPage({ params }: any) {
         lineHeight: "1.8",
       }}
     >
-      {/* 👇 THIS is your Markdown title */}
       <h1>{data.title}</h1>
 
-      {/* Markdown body */}
-      <div
-        style={{ marginTop: "2rem" }}
-        dangerouslySetInnerHTML={{
-          __html: processed.toString(),
-        }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: processed.toString() }} />
     </main>
   );
 }
