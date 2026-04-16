@@ -5,7 +5,7 @@ import matter from "gray-matter";
 
 
 export default function PapersPage() { 
-    const dir = path.join(process.cwd(), "app/content/papers");
+    const dir = path.join(process.cwd(), "content/papers");
     const files = fs.readdirSync(dir);
 
     const papers = files.map((file) => {
@@ -28,7 +28,7 @@ export default function PapersPage() {
             margin: "0 auto",
             padding: "4rem 1.5rem",
             fontFamily: "serif",
-            
+
 
         }}
         >
@@ -43,8 +43,8 @@ export default function PapersPage() {
                     alignContent: "center",
                     alignItems: "center", }}>
 
-                        <a href="`/papers/$(paper.slug)`">
-                        {paper.title}
+                        <a href={`/papers/${paper.slug}`}>
+                            {paper.title}
                         </a>
                     </div>
                 ))}
