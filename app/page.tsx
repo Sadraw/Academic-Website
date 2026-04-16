@@ -13,7 +13,7 @@ export default function Home() {
       background: "#188639",
     }}
     >
-      <h1 style={{fontSize: "2.9rem", letterSpacing: "1px", marginBottom: "2rem"
+      <h1 style={{fontSize: "2.9rem", letterSpacing: "1px", marginBottom: "0.8rem"
       }}>
         Sadra Daneshmand
       </h1>
