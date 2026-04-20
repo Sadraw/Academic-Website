@@ -10,15 +10,22 @@ export default function Home() {
       alignItems: "center",
       textAlign: "center",
       fontFamily: "sherif",
-      background: "#218a40",
+      background: "#98A869",
     }}
     >
-      <h1 style={{fontSize: "2.3rem", letterSpacing: "1px", marginBottom: "0.8rem"
+      <h1 style={{
+        fontSize: "2.3rem",
+        letterSpacing: "1px",
+        marginBottom: "0.8rem", 
+        color: "#d6ddd9"
       }}>
         Sadra Daneshmand
       </h1>
 
-      <p style={{ marginBottom: "2rem", fontSize: "1.3rem"
+      <p style={{ 
+        marginBottom: "2rem",
+        fontSize: "1.3rem", 
+        color: "#38443D",
       }}>
         MA English Studies · Discourse · Media · Language
       </p>
@@ -28,7 +35,7 @@ export default function Home() {
         marginTop: "0.2rem",
         display: "flex", 
         gap: "1.5rem",
-        color: "#000000",
+        color: "#1F2520",
         }}>
         <a href="/papers">Papers</a>
         <a href="/videos">Media</a>

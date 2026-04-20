@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path"; 
 import matter from "gray-matter";
-
+import Link from "next/link";
 
 
 export default function PapersPage() { 
@@ -24,26 +24,55 @@ export default function PapersPage() {
     return (
         <main
         style={{
-            maxWidth: "750px",
+            minHeight: "100vh",
+            width: "100%",
             margin: "0 auto",
-            padding: "4rem 1.5rem",
+            padding: "4rem 2rem",
             fontFamily: "serif",
-
+            background: "#98A869",
+            textAlign: "center",
+            
 
         }}
         >
-            <h1 style={{ fontSize: "3rem"}}>Papers</h1>
+            <Link href= "/" style={{ textDecoration: "none"}}>
+
+                <h1 
+                
+                    style={{ 
+                        fontSize: "3rem",
+                        color: "#2F5D50",
+                        marginBottom: "2rem",
+                            }}>
+                                Papers
+                </h1>
+
+            </Link>
 
             <div style={{ marginTop: "2rem"}}>
                 {papers.map((paper) => (
 
-                    <div key={paper.slug} style={{ 
-                    marginBottom: "1.2rem", 
+                    <div
+                    key={paper.slug} 
+                    style={{ 
+                    marginBottom: "1.4rem", 
                     fontSize: "1.5rem",
                     alignContent: "center",
-                    alignItems: "center", }}>
+                    alignItems: "center", 
+                    paddingBottom: "0.2rem",
+                    }}>
 
-                        <a href={`/papers/${paper.slug}`}>
+                        <a href={`/papers/${paper.slug}`}
+                        style={{
+                            color: "#1F2520",
+                            textDecoration: "none",
+                            fontSize: "1.45rem",
+                            fontWeight: "500",
+                            lineHeight: "1.5",
+                            letterSpacing: "0.2px",
+                            display: "inline-block",
+                            maxWidth: "650px",
+                        }}>
                             {paper.title}
                         </a>
                     </div>
