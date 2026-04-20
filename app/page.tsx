@@ -41,9 +41,11 @@ export default function Home() {
         color: "#2F5D50",
         }}>
           
-        <Link href="/papers">Papers</Link> 
+        <Link href="/papers">Publications</Link> 
         <Link href="/videos">Media</Link> 
         <Link href="/cv">CV</Link> 
+        <Link href="/archive">Archive</Link> 
+        <Link href="/archive">Contact</Link> 
         <a href="https://github.com/Sadraw" target="_blank" rel="noopener noreferrer">Github</a>
 
 
