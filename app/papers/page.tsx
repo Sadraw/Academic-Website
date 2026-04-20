@@ -25,6 +25,7 @@ export default function PapersPage() {
 
     return (
         
+        
         <main
         style={{
             minHeight: "100vh",
@@ -38,6 +39,13 @@ export default function PapersPage() {
 
         }}
         >
+    {/* navbar */}
+
+    <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 ">
+
+      <ThemeToggle/>
+      
+    </nav>
 
             
 
