@@ -35,19 +35,27 @@ export default function PapersPage() {
 
         }}
         >
-            <Link href= "/" style={{ textDecoration: "none"}}>
+            
 
-                <h1 
-                
-                    style={{ 
-                        fontSize: "3rem",
-                        color: "#2F5D50",
+                <h1
+                    style={{
+                        fontSize: "2.9rem",
                         marginBottom: "2rem",
-                            }}>
-                                Papers
+                        marginRight: "3.2rem"
+                    }}>
+                    
+                    <Link
+                        href="/"
+                        style={{
+                        color: "#1F2520",
+                        textDecoration: "none",
+                        }}
+                    >
+                        ← Papers
+                    </Link>
                 </h1>
 
-            </Link>
+
 
             <div style={{ marginTop: "2rem"}}>
                 {papers.map((paper) => (
