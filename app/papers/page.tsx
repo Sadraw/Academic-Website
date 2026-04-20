@@ -1,103 +1,59 @@
 import fs from "fs";
-import path from "path"; 
+import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import { ThemeToggle } from "../components/ThemeToggle";
 
-
-export default function PapersPage() { 
+export default function PapersPage() {
     const dir = path.join(process.cwd(), "content/papers");
     const files = fs.readdirSync(dir);
 
     const papers = files.map((file) => {
         const slug = file.replace(".md", "");
         const fileContent = fs.readFileSync(path.join(dir, file), "utf8");
-        const {data} = matter(fileContent);
-        
+        const { data } = matter(fileContent);
+
         return {
-            slug, 
+            slug,
             title: data.title,
-
         };
-
     });
-   
 
     return (
-        
-        
-        <main
-        style={{
-            minHeight: "100vh",
-            width: "100%",
-            margin: "0 auto",
-            padding: "4rem 2rem",
-            fontFamily: "serif",
-            background: "#98A869",
-            textAlign: "center",
-            
+        <main className="min-h-screen w-full mx-auto px-8 py-16 font-serif bg-[#98A869] dark:bg-zinc-900 text-center transition-colors duration-300">
 
-        }}
+            {/* Navbar */}
+            <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4">
+                <ThemeToggle />
+            </nav>
+
+            <h1 className="text-[2.9rem] mb-8 mr-[3.2rem]">
+                <Link
+                    href="/"
+                    className="text-[#1F2520] dark:text-zinc-100 no-underline"
+                >
+                    &larr; Publications
+                </Link>
+            </h1>
+
+<div className="mt-8">
+    {papers.map((paper) => (
+        <div
+            key={paper.slug}
+            className="mb-[1.4rem] text-[1.5rem] pb-[0.2rem]"
         >
-    {/* navbar */}
-
-    <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 ">
-
-      <ThemeToggle/>
-      
-    </nav>
-
             
+            <Link
+                href={`/papers/${paper.slug}`}
+                className="text-[#1F2520] dark:text-zinc-200 no-underline text-[1.45rem] font-medium leading-normal tracking-[0.2px] inline-block max-w-[650px]"
+            >
 
-                <h1
-                    style={{
-                        fontSize: "2.9rem",
-                        marginBottom: "2rem",
-                        marginRight: "3.2rem"
-                    }}>
-                    
-                    <Link
-                        href="/"
-                        style={{
-                        color: "#1F2520",
-                        textDecoration: "none",
-                        }}
-                    >
-                        ← Publications
-                    </Link>
-                </h1>
+                {paper.title}
 
-
-
-            <div style={{ marginTop: "2rem"}}>  
-                {papers.map((paper) => (
-
-                    <div
-                    key={paper.slug} 
-                    style={{ 
-                    marginBottom: "1.4rem", 
-                    fontSize: "1.5rem",
-                    alignContent: "center",
-                    alignItems: "center", 
-                    paddingBottom: "0.2rem",
-                    }}>
-
-                        <a href={`/papers/${paper.slug}`}
-                        style={{
-                            color: "#1F2520",
-                            textDecoration: "none",
-                            fontSize: "1.45rem",
-                            fontWeight: "500",
-                            lineHeight: "1.5",
-                            letterSpacing: "0.2px",
-                            display: "inline-block",
-                            maxWidth: "650px",
-                        }}>
-                            {paper.title}
-                        </a>
-                    </div>
-                ))}
-            </div>
+            </Link>
+        </div>
+    ))}
+</div>
         </main>
-    )
+    );
 }
