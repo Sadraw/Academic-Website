@@ -51,7 +51,7 @@ export default function PapersPage() {
                         textDecoration: "none",
                         }}
                     >
-                        ← Papers
+                        ← Publications
                     </Link>
                 </h1>
 
