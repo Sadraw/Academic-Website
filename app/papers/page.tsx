@@ -57,7 +57,7 @@ export default function PapersPage() {
 
 
 
-            <div style={{ marginTop: "2rem"}}>
+            <div style={{ marginTop: "2rem"}}>  
                 {papers.map((paper) => (
 
                     <div
