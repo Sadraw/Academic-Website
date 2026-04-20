@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path"; 
 import matter from "gray-matter";
 import Link from "next/link";
+import { ThemeToggle } from "../components/ThemeToggle";
+
 
 export default function PapersPage() { 
     const dir = path.join(process.cwd(), "content/papers");
@@ -19,8 +21,10 @@ export default function PapersPage() {
         };
 
     });
+   
 
     return (
+        
         <main
         style={{
             minHeight: "100vh",
@@ -34,6 +38,7 @@ export default function PapersPage() {
 
         }}
         >
+
             
 
                 <h1
