@@ -1,45 +1,28 @@
 import Link from "next/link";
+import { ThemeToggle } from "./components/ThemeToggle";
 
 // home landing page 
 
 export default function Home() {
   return (
-    <main
-    style={{
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center", 
-      alignItems: "center",
-      textAlign: "center",
-      fontFamily: "sherif",
-      background: "#98A869",
-    }}
-    >
-      <h1 style={{
-        fontSize: "2.3rem",
-        letterSpacing: "1px",
-        marginBottom: "0.8rem", 
-        color: "#2d2e2d"
-      }}>
-        Sadra Daneshmand
-      </h1>
+    
+    <main className="h-screen flex flex-col justify-center items-center text-center font-serif bg-[#98A869]">
 
-      <p style={{ 
-        marginBottom: "2rem",
-        fontSize: "1.3rem", 
-        color: " #383737",
-      }}>
-        MA English Studies · Discourse · Media · Language
-      </p>
+    {/* navbar */}
+    <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 ">
+      <ThemeToggle/>
+    </nav>
 
-      <div style={{
-        fontSize: "1.4rem",
-        marginTop: "0.2rem",
-        display: "flex", 
-        gap: "1.5rem",
-        color: "#2F5D50",
-        }}>
+
+    <h1 className="text-[2.3rem] tracking-[1px] mb-[0.8rem] text-[#2d2e2d]">
+      Sadra Daneshmand
+    </h1>
+
+    <p className="mb-8 text-[1.3rem] text-[#383737]">
+      MA English Studies · Discourse · Media · Language
+    </p>
+
+    <div className="text-[1.4rem] mt-[0.2rem] flex gap-6 text-[#2F5D50]">
           
         <Link href="/papers">Publications</Link> 
         <Link href="/videos">Media</Link> 

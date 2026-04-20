@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 
-
 export default function PapersPage() { 
     const dir = path.join(process.cwd(), "content/papers");
     const files = fs.readdirSync(dir);
