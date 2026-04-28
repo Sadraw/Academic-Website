@@ -35,16 +35,18 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
 
-    <nav className=
-    "absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 "
-    >
 
-      <ThemeToggle/>
-      
-    </nav>
         
         <ThemeProvider attribute= "class" defaultTheme="system" enableSystem>
           
+          <nav 
+          className=
+          "absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 "
+          >
+        
+            <ThemeToggle/>
+      
+          </nav>
           {children}
           
           </ThemeProvider>

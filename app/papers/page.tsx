@@ -45,7 +45,7 @@ export default function PapersPage() {
             
             <Link
                 href={`/papers/${paper.slug}`}
-                className="text-[#1F2520] dark:text-zinc-200 no-underline text-[1.45rem] font-medium leading-normal tracking-[0.2px] inline-block max-w-[650px]"
+                className="text-[#1F2520] dark:text-zinc-200 no-underline text-[1.45rem] font-medium leading-normal tracking-[0.2px] inline-block max-w-162.5"
             >
 
                 {paper.title}
