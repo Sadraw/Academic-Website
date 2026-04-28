@@ -47,7 +47,12 @@ export default function ContactPage() {
         </p>
         {/* Email  */}
 
+        <div 
+        className=
+        "flex items-center gap-3 mt-4"
+        >
 
+        </div>
 
         <p 
         className=
