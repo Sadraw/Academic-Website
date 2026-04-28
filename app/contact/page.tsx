@@ -15,13 +15,17 @@ export default function ContactPage() {
             <ThemeToggle/>
         </nav>
 
+        {/* Content Container  */}
+
+        <div className="flex flex-col items-center gap-2 pt-12">
+
         {/* Title  */}
 
         <h1 className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px] ">
 
             <Link
                 href="/"
-                className="text-[#1F2520] dark:text-zinc-100 no-underline">
+                className="text-[#1F2520] dark:text-zinc-100 no-underline hover:opacity-65 transition">
 
             
                     &larr; Contact
@@ -37,6 +41,25 @@ export default function ContactPage() {
         >
             Open to Research Collaborations · Digital Projects · Interdisciplinary Work 
         </p>
+
+        <p>
+
+        </p>
+        {/* Email  */}
+
+        <a 
+        href="mailto:sadrawdaneshmand@gmail.com"
+        className="
+        text-[1.5rem]
+        mr-2
+        mt-2
+        text-[#1F2520] dark:text-zinc-100
+        no-underline underline-offset-4
+        opacity-100 z-10 transition-opacity duration-400 hover:bg-emerald-600
+        ">
+
+            Email me!
+        </a>
 
         <p 
         className=
@@ -55,12 +78,7 @@ export default function ContactPage() {
         </p>
 
 
-
-
-
-
-
-
+</div>
 
     </main>
  )   
