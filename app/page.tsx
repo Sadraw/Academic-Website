@@ -19,7 +19,9 @@ export default function Home() {
     </h1>
 
     <p className="mb-8 text-[1.3rem] text-[#383737] dark:text-zinc-100">
-      MA English Studies · Discourse · Media · Language
+      MA English Studies · Discourse · Media · Language 
+      <p></p>
+      Researcher · Developer · Student 
     </p>
 
     <div className="text-[1.4rem] mt-[0.2rem] flex gap-6 text-[#2F5D50] dark:text-zinc-400">
