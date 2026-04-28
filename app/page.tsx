@@ -12,10 +12,10 @@ export default function Home() {
     animate = {{opacity: 1, y: 0}}
     transition= {{ duration: 0.25, ease: "easeOut", delay: 0.05}}
     className=
-    "h-screen flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
+    "h-screen  flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
     >
 
-    {/* navbar */}
+    {/* navbar */} 
 
     <h1 className="text-[2.3rem] tracking-[1px] mb-[0.8rem] text-[#2d2e2d] dark:text-zinc-100">
       Sadra Daneshmand
