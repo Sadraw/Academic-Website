@@ -1,3 +1,5 @@
+"use client";
+import {motion} from "framer-motion";
 import Link from "next/link";
 
 // home landing page 
@@ -5,11 +7,15 @@ import Link from "next/link";
 export default function Home() {
   return (
     
-    <main className="h-screen flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300">
+    <motion.main
+    initial = {{ opacity: 0, y: 10}}
+    animate = {{opacity: 1, y: 0}}
+    transition= {{ duration: 0.25, ease: "easeOut", delay: 0.05}}
+    className=
+    "h-screen flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
+    >
 
     {/* navbar */}
-
-
 
     <h1 className="text-[2.3rem] tracking-[1px] mb-[0.8rem] text-[#2d2e2d] dark:text-zinc-100">
       Sadra Daneshmand
@@ -31,6 +37,6 @@ export default function Home() {
 
 
       </div>
-    </main>
+    </motion.main>
   );
 }
