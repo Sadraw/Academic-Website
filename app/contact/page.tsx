@@ -47,19 +47,7 @@ export default function ContactPage() {
         </p>
         {/* Email  */}
 
-        <a 
-        href="mailto:sadrawdaneshmand@gmail.com"
-        className="
-        text-[1.5rem]
-        mr-2
-        mt-2
-        text-[#1F2520] dark:text-zinc-100
-        no-underline underline-offset-4
-        opacity-100 z-10 transition-opacity duration-400 hover:bg-emerald-600
-        ">
 
-            Email me!
-        </a>
 
         <p 
         className=
