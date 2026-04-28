@@ -8,9 +8,9 @@ export default function Home() {
   return (
     
     <motion.main
-    initial = {{ opacity: 0, y: 6}}
+    initial = {{ opacity: 0, y: 0}}
     animate = {{opacity: 1, y: 0}}
-    transition= {{ duration: 0.7, ease: "easeOut", delay: 0.05,}}
+    transition= {{ duration: 0.7, ease: "easeOut", delay: 0.3,}}
     className=
     "h-screen  flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
     >
