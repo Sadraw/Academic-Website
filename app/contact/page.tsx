@@ -17,7 +17,7 @@ export default function ContactPage() {
 
         {/* Content Container  */}
 
-        <div className="flex flex-col items-center gap-2 pt-12">
+        <div className="flex flex-col items-center gap-1 pt-12">
 
         {/* Title  */}
 
@@ -52,11 +52,13 @@ export default function ContactPage() {
         "flex items-center gap-3 mt-4"
         >
 
+            [ youremail@gmail.com ]  📋
+
         </div>
 
         <p 
         className=
-        "mt-5 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
+        "mt-1 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
         >
             <a
             href=
