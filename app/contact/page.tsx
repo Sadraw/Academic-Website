@@ -1,6 +1,8 @@
 // contact page 
 import Link from "next/link";
 import { ThemeToggle } from "../components/ThemeToggle";
+import { EmailCopy } from "../components/EmailCopy";
+
 
 export default function ContactPage() {
     
@@ -49,16 +51,16 @@ export default function ContactPage() {
 
         <div 
         className=
-        "flex items-center gap-3 mt-4"
+        "flex items-center gap-3 mt-1"
         >
 
-            [ youremail@gmail.com ]  📋
+            <EmailCopy/>
 
         </div>
 
         <p 
         className=
-        "mt-1 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
+        "mt-4 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
         >
             <a
             href=
