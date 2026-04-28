@@ -33,24 +33,31 @@ export function EmailCopy() {
       <button
         onClick={copyEmail}
         className="
-          text-sm
-          
-          hover:opacity-100 transition
-          cursor-pointer
-          px-3 py-1
-          rounded-full
-          border border-black/10 dark:border-white/10
-          bg-white/20 dark:bg-black/20
-          duration-300
-          hover:scale-[1.05]
-          hover:bg-white/30 dark:hover:bg-black/30
-          active:scale-[0.95]
-          hover:shadow-sm hover:shadow-black/10 dark:hover:shadow-white/10
-          active:translate-y-px
-        "
+        text-sm
+        opacity-60 hover:opacity-100
+        cursor-pointer
+        px-3 py-1
+        rounded-full
+        border border-black/10 dark:border-white/10
+        bg-white/20 dark:bg-black/20
+        transition-all duration-150 ease-in-out
+        hover:scale-[1.05]
+      hover:bg-white/30 dark:hover:bg-black/30
+        hover:shadow-sm hover:shadow-black/10 dark:hover:shadow-white/10
+
+        active:scale-[0.97]
+"
       >
-        {copied ? "✓ copied" : "copy"}
+        <span 
+        className=
+        "relative inline-block w-17.5 text-center">
+            
+            {copied ? "✓ copied" : "copy"}
+
+        </span>
+
       </button>
+
     </div>
   );
 }

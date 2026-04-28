@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ThemeToggle } from "./components/ThemeToggle";
 
 // home landing page 
 
@@ -9,9 +8,7 @@ export default function Home() {
     <main className="h-screen flex flex-col justify-center items-center text-center font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300">
 
     {/* navbar */}
-    <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 ">
-      <ThemeToggle/>
-    </nav>
+
 
 
     <h1 className="text-[2.3rem] tracking-[1px] mb-[0.8rem] text-[#2d2e2d] dark:text-zinc-100">

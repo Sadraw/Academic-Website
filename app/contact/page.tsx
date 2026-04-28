@@ -1,6 +1,5 @@
 // contact page 
 import Link from "next/link";
-import { ThemeToggle } from "../components/ThemeToggle";
 import { EmailCopy } from "../components/EmailCopy";
 
 
@@ -12,10 +11,7 @@ export default function ContactPage() {
     " flex flex-col items-center min-h-screen w-full px-8 py-16 font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
     >
 
-        {/* Navbar  */}
-        <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4">
-            <ThemeToggle/>
-        </nav>
+
 
         {/* Content Container  */}
 
