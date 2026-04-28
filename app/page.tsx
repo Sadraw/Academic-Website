@@ -29,7 +29,7 @@ export default function Home() {
         <Link href="/videos">Media</Link> 
         <Link href="/cv">CV</Link> 
         <Link href="/archive">Archive</Link> 
-        <Link href="/archive">Contact</Link> 
+        <Link href="/contact">Contact</Link> 
         <a href="https://github.com/Sadraw" target="_blank" rel="noopener noreferrer">Github</a>
 
 
