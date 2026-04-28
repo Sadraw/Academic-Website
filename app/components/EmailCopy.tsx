@@ -1,4 +1,5 @@
 "use client";
+import {motion} from "framer-motion";
 
 import { useState } from "react";
 
@@ -30,7 +31,9 @@ export function EmailCopy() {
       </span>
 
       {/* Copy button ONLY */}
-      <button
+      <motion.button
+      whileHover={{ scale: 1.1}}
+      whileTap={{ scale: 0.9}}
         onClick={copyEmail}
         className="
         text-sm
@@ -56,7 +59,7 @@ export function EmailCopy() {
 
         </span>
 
-      </button>
+      </motion.button>
 
     </div>
   );
