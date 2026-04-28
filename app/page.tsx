@@ -18,7 +18,7 @@ export default function Home() {
       Sadra Daneshmand
     </h1>
 
-    <p className="mb-8 text-[1.3rem] text-[#383737] dark:text-zinc-100">
+    <p className="mb-8 text-[1.3rem]   text-[#383737] dark:text-zinc-100">
       MA English Studies · Discourse · Media · Language 
       
     </p>

@@ -7,7 +7,7 @@ export default function ContactPage() {
  return (
     <main 
     className=
-    "min-h-screen  justify-center items-center w-full mx-auto px-8 py-16 font-serif bg-[#98A869] dark:bg-zinc-900 text-center transition-colors duration-300"
+    " flex flex-col items-center min-h-screen w-full px-8 py-16 font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
     >
 
         {/* Navbar  */}
@@ -15,7 +15,9 @@ export default function ContactPage() {
             <ThemeToggle/>
         </nav>
 
-        <h1 className="text-[2.9rem] mb-8 mr-[3.2rem] ">
+        {/* Title  */}
+
+        <h1 className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px] ">
 
             <Link
                 href="/"
@@ -27,14 +29,30 @@ export default function ContactPage() {
 
         </h1>
 
+        {/* Description  */}
+
         <p 
         className=
-        "mb-8 text-[1.3rem] text-[#383737] dark:text-zinc-100"
+        " text-[1rem] font-serif leading-relaxed tracking-wide text-[#383737] dark:text-zinc-100"
         >
-            Open to Research Collaborations · Digital Projects · and Meaningful Opportunities 
+            Open to Research Collaborations · Digital Projects · Interdisciplinary Work 
         </p>
 
-        <a href=""></a>
+        <p 
+        className=
+        "mt-5 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
+        >
+            <a
+            href=
+            "https://www.google.com/search?q=graz&oq=graz&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDsyBggCECMYJzIGCAMQRRhBMgYIBBBFGDwyBggFEEUYPDIGCAYQRRg9MgYIBxBFGEHSAQc1OTdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
+            target="_blank"  rel="noopener noreferrer"
+            className="mb-[0.8rem] mr-5.5 tracking-[1px] leading-relaxed text-[#1F2520] dark:text-zinc-100 no-underline ">
+            
+                📍Graz · Austria
+
+            </a>
+            
+        </p>
 
 
 
