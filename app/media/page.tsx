@@ -18,7 +18,8 @@ export default function MediaPage(){
         "
         >
 
-            <div className="
+            <div 
+            className="
             pt-12
             flex
             flex-col
@@ -38,6 +39,33 @@ export default function MediaPage(){
                         
                     </Link>
                 </h1>
+                    <p 
+                    className="
+                    text-[#383737] 
+                    dark:text-zinc-100 
+                    text-[1.2rem] 
+                    mb-10 
+                    tracking-wide
+                    ">
+                        Visual Media · Sound · Digital Projects
+                    </p>
+
+                        <div 
+                        className=" max-w-3xl w-full">
+                            <Image
+                                src="/images/the-man-in-the-sun.jpg"
+                                alt="Street in Graz"
+                                width={1200}
+                                height={800}
+                                className="
+                                rounded-xl 
+                                shadow-lg 
+                                object-cover 
+                                w-full 
+                                h-auto"
+                            />
+
+                        </div>
             </div>
 
         </main>
