@@ -39,12 +39,11 @@ export function EmailCopy() {
         text-sm
         opacity-60 hover:opacity-100
         cursor-pointer
-        px-3 py-1
-        rounded-full
+        px-1 py-2        rounded-full
         border border-black/10 dark:border-white/10
         bg-white/20 dark:bg-black/20
         transition-all duration-150 ease-in-out
-        hover:scale-[1.05]
+        hover:scale-[0.8]
       hover:bg-white/30 dark:hover:bg-black/30
         hover:shadow-sm hover:shadow-black/10 dark:hover:shadow-white/10
 

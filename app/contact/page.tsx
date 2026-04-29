@@ -24,7 +24,7 @@ export default function ContactPage() {
 
             <Link
                 href="/"
-                className="text-[#1F2520] dark:text-zinc-100 no-underline hover:opacity-65 transition">
+                className="text-[#1F2520] dark:text-[#98A869] no-underline hover:opacity-65 transition">
 
             
                     &larr; Contact
@@ -35,16 +35,52 @@ export default function ContactPage() {
         {/* Description  */}
 
         <p 
-        className=
-        " text-[1rem] font-serif leading-relaxed tracking-wide text-[#383737] dark:text-zinc-100"
+        className="
+        text-[1.1rem]
+        font-serif
+        leading-relaxed
+        tracking-wide
+        text-[#383737]
+        dark:text-zinc-100
+        group
+        relative
+        overflow-hidden
+        cursor-default
+        " 
         >
-            Open to Research Collaborations · Digital Projects · Interdisciplinary Work 
+            <span className="relative z-10">
+
+                Open to Research Collaborations · Digital Projects · Interdisciplinary Work 
+
+            </span>
+
+                <span
+  className="
+    pointer-events-none
+    absolute
+    left-0
+    top-1/2
+    h-[45%]
+    w-full
+    -translate-y-1/2
+    -translate-x-full
+    bg-linear-to-r
+    from-transparent
+    via-white/70
+    dark:via-white/70
+    to-transparent
+    blur-sm
+    opacity-15
+    group-hover:opacity-50
+    group-hover:translate-x-full
+    transition-all
+    duration-4500
+    ease-out
+  "
+></span>
+            
         </p>
 
-        <p>
-
-        </p>
-        {/* Email  */}
 
         <div 
         className=
@@ -63,7 +99,7 @@ export default function ContactPage() {
             href=
             "https://www.google.com/search?q=graz&oq=graz&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDsyBggCECMYJzIGCAMQRRhBMgYIBBBFGDwyBggFEEUYPDIGCAYQRRg9MgYIBxBFGEHSAQc1OTdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
             target="_blank"  rel="noopener noreferrer"
-            className="mb-[0.8rem] mr-5.5 tracking-[1px] leading-relaxed text-[#1F2520] dark:text-zinc-100 no-underline ">
+            className="mb-[0.8rem] mr-5.5 tracking-[1px] leading-relaxed ">
             
                 📍Graz · Austria
 

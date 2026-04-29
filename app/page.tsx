@@ -29,7 +29,7 @@ export default function Home() {
     <div className="text-[1.4rem] mt-[0.2rem] flex gap-6 text-[#2F5D50] dark:text-zinc-400">
           
         <Link href="/papers">Publications</Link> 
-        <Link href="/videos">Media</Link> 
+        <Link href="/media">Media</Link> 
         <Link href="/cv">CV</Link> 
         <Link href="/archive">Archive</Link> 
         <Link href="/contact">Contact</Link> 
