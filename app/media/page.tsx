@@ -1,4 +1,6 @@
 "use client"
+
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -41,7 +43,7 @@ export default function MediaPage(){
                 className="text-[#1F2520] dark:text-[#98A869] no-underline hover:opacity-65 transition">
 
             
-                    &larr; Contact
+                    &larr; Media
             </Link>
 
         </h1>
@@ -61,7 +63,7 @@ export default function MediaPage(){
         >
             <span className="relative z-10">
 
-                Visual Media · Sound · Digital Projects
+                Visuals · Sounds · Digital Projects
 
             </span>
 
