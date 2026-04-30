@@ -2,6 +2,7 @@
 // contact page 
 import Link from "next/link";
 import { EmailCopy } from "../components/EmailCopy";
+import { motion } from "framer-motion";
 
 
 export default function ContactPage() {
@@ -20,7 +21,8 @@ export default function ContactPage() {
 
         {/* Title  */}
 
-        <h1 className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px] ">
+        <h1
+            className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px] ">
 
             <Link
                 href="/"
@@ -77,9 +79,11 @@ export default function ContactPage() {
     duration-4500
     ease-out
   "
-></span>
+    >
+        
+    </span>
             
-        </p>
+</p>
 
 
         <div 
