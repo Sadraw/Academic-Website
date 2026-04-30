@@ -100,7 +100,7 @@ export function LightboxImage({
 
             {/* metadata */}
             {(title || date || description) && (
-              <div className="mt-4 text-center text-zinc-100  font-serif">
+              <div className="mt-4 text-center text-zinc-300 dark:text-zinc-100  font-serif">
                 {title && <h2 className="text-lg">{title}</h2>}
                 {date && <p className="text-sm opacity-70">{date}</p>}
                 {description && (
