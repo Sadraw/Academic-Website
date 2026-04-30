@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
-
-
-
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -24,9 +21,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
@@ -36,22 +33,14 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex flex-col bg-[#98A869] dark:bg-zinc-900 transition-colors">
 
 
-        
-        <ThemeProvider attribute= "class" defaultTheme="system" enableSystem> 
-          
-          <nav 
-          className=
-          "absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4 "
-          >
-        
-            <ThemeToggle/>
-      
+          <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4">
+            <ThemeToggle />
           </nav>
+
           {children}
-          
-          </ThemeProvider>
-          
-        </body>
+
+
+      </body>
     </html>
   );
 }
