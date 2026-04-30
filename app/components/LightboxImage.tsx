@@ -1,49 +1,92 @@
 "use client";
 
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-type Props = {
+import { useEffect } from "react";
+
+type LightboxImageProps = {
   src: string;
-  alt?: string;
-  location?: string;
-  year?: string;
+  alt: string;
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  date?: string;
+  description?: string;
 };
 
-export function LightboxImage({ src, alt, location, year }: Props) {
-  const [open, setOpen] = useState(false);
+export function LightboxImage({
+  src,
+  alt,
+  isOpen,
+  onClose,
+  title,
+  date,
+  description,
+}: LightboxImageProps) {
+  // ESC to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    if (isOpen) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   return (
-    <>
-      {/* Thumbnail */}
-      <Image
-        src={src}
-        alt={alt}
-        onClick={() => setOpen(true)}
-        className="cursor-pointer rounded-xl shadow-lg w-full h-auto transition hover:scale-[1.01]"
-      />
-
-      {/* Overlay */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="
+            fixed inset-0
+            z-50
+            flex items-center justify-center
+            bg-black/60
+            backdrop-blur-md
+          "
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
         >
-          <div
+          {/* content */}
+          <motion.div
+            className="
+              relative
+              max-w-5xl
+              w-[90%]
+              bg-transparent
+            "
+            initial={{ scale: 0.92, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 10 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="flex flex-col items-center"
           >
-            <Image
-              src={src}
-              alt={alt}
-              className="max-w-[90vw] max-h-[70vh] rounded-lg shadow-xl"
-            />
+            {/* Image */}
+            <div className="relative w-full aspect-[3/2] overflow-hidden rounded-xl shadow-2xl">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
 
-            <p className="mt-4 text-sm text-white/80">
-              {location} {year && `· ${year}`}
-            </p>
-          </div>
-        </div>
+            {/* metadata */}
+            {(title || date || description) && (
+              <div className="mt-4 text-center text-zinc-100">
+                {title && <h2 className="text-lg">{title}</h2>}
+                {date && <p className="text-sm opacity-70">{date}</p>}
+                {description && (
+                  <p className="text-sm mt-2 opacity-80">{description}</p>
+                )}
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   );
 }
