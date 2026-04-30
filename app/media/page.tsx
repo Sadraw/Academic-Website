@@ -3,8 +3,14 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { LightboxImage } from "../components/LightboxImage";
+
+
 
 export default function MediaPage() {
+    const [open, setOpen] = useState(false);
+    
   return (
     <main
       className="
@@ -96,7 +102,7 @@ export default function MediaPage() {
           }}
           className="max-w-3xl w-full"
         >
-          <div className="relative w-full aspect-[3/2] overflow-hidden rounded-xl shadow-lg">
+          <div className="relative w-full aspect-3/2 overflow-hidden rounded-xl shadow-lg">
             <Image
               src="/images/the-man-in-the-sun.jpg"
               alt="Street in Graz"
@@ -105,6 +111,7 @@ export default function MediaPage() {
               priority
             />
           </div>
+          
         </motion.div>
       </motion.div>
     </main>
