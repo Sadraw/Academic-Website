@@ -63,8 +63,32 @@ export function LightboxImage({
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
+
+
+            {/*Close Button */}
+            <button
+            onClick={onClose}
+            className="
+            absolute top-3 right-3
+            z-10
+            text-white/80 hover:text-white
+            bg-black/30 hover:bg-black/50
+            rounded-full
+            w-9 h-9 
+            flex items-center justify-center
+            transition
+            "
+            >
+
+                ✕
+ 
+            </button>
+            
+            
+            
+            
             {/* Image */}
-            <div className="relative w-full aspect-[3/2] overflow-hidden rounded-xl shadow-2xl">
+            <div className="relative w-full aspect-3/2 overflow-hidden rounded-xl shadow-2xl">
               <Image
                 src={src}
                 alt={alt}
@@ -76,7 +100,7 @@ export function LightboxImage({
 
             {/* metadata */}
             {(title || date || description) && (
-              <div className="mt-4 text-center text-zinc-100">
+              <div className="mt-4 text-center text-zinc-100  font-serif">
                 {title && <h2 className="text-lg">{title}</h2>}
                 {date && <p className="text-sm opacity-70">{date}</p>}
                 {description && (

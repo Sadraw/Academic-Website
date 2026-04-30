@@ -32,6 +32,7 @@ export default function RootLayout({
     >
       <body className="antialiased min-h-screen flex flex-col bg-[#98A869] dark:bg-zinc-900 transition-colors">
 
+        <Providers>
 
           <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4">
             <ThemeToggle />
@@ -39,6 +40,7 @@ export default function RootLayout({
 
           {children}
 
+        </Providers>
 
       </body>
     </html>
