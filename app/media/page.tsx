@@ -6,11 +6,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { LightboxImage } from "../components/LightboxImage";
 
-
-
 export default function MediaPage() {
-    const [open, setOpen] = useState(false);
-    
+  const [open, setOpen] = useState(false);
+
   return (
     <main
       className="
@@ -27,12 +25,7 @@ export default function MediaPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
-        className="
-          pt-12
-          flex
-          flex-col
-          items-center
-        "
+        className="pt-12 flex flex-col items-center"
       >
         {/* Title */}
         <h1 className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px]">
@@ -91,7 +84,7 @@ export default function MediaPage() {
 
         <p className="text-[#383737] dark:text-zinc-100 text-[1.2rem] mb-10 tracking-wide" />
 
-        {/* Image */}
+        {/* IMAGE + CLICK TRIGGER */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,7 +95,20 @@ export default function MediaPage() {
           }}
           className="max-w-3xl w-full"
         >
-          <div className="relative w-full aspect-3/2 overflow-hidden rounded-xl shadow-lg">
+          <div
+            className="
+              relative
+              w-full
+              aspect-[3/2]
+              overflow-hidden
+              rounded-xl
+              shadow-lg
+              cursor-pointer
+              transition-transform duration-300
+              hover:scale-[1.01]
+            "
+            onClick={() => setOpen(true)}
+          >
             <Image
               src="/images/the-man-in-the-sun.jpg"
               alt="Street in Graz"
@@ -111,7 +117,18 @@ export default function MediaPage() {
               priority
             />
           </div>
-          
+
+          {/* LIGHTBOX */}
+          <LightboxImage
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            src="/images/the-man-in-the-sun.jpg"
+            alt="photo"
+            title="The Man in the Sun"
+            date="29.04.2026"
+            description="Captured during a late afternoon near the university"
+            
+          />
         </motion.div>
       </motion.div>
     </main>
