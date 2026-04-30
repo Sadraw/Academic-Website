@@ -30,26 +30,40 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="
-      min-h-screen 
-      flex 
-      flex-col 
-      bg-[#98A869] 
-      dark:bg-zinc-900 
+      <body className="relative min-h-screen flex flex-col bg-[#98A869] dark:bg-zinc-900">
 
-      ">
+  {/* animated light layer */}
+  <div
+    className="
+      fixed inset-0 -z-10
+      transition-opacity duration-700 ease-in-out
+      bg-[#98A869]
+      dark:bg-zinc-900
+      opacity-100 dark:opacity-0
+    "
+  />
 
-        <Providers>
+  {/* animated dark layer */}
+  <div
+    className="
+      fixed inset-0 -z-10
+      transition-opacity duration-900 delay-75 ease-in-out
+      bg-zinc-900
+      opacity-0 dark:opacity-100
+    "
+  />
 
-          <nav className="absolute top-0 left-0 right-0 flex justify-end items-center px-8 py-4">
-            <ThemeToggle />
-          </nav>
+  <Providers>
 
-          {children}
+    <nav className="absolute top-0 left-0 right-0 flex justify-end px-8 py-4">
+      <ThemeToggle />
+    </nav>
 
-        </Providers>
+    {children}
 
-      </body>
+  </Providers>
+
+</body>
     </html>
   );
 }
