@@ -118,35 +118,35 @@ export default function PhotosPage() {
 
         {/* SCROLL AREA */}
         <div
-          ref={scrollRef}
-          className="
-            w-full
-            overflow-x-auto
-            flex
-            gap-6
-            px-6
-            scroll-smooth
-            snap-x
-            snap-mandatory
-          "
-        >
-          {photos.map((photo, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setSelected(photo)}
-              className="
-                flex-shrink-0
-                w-[32%]
-                cursor-pointer
-                snap-center
-              "
+        ref={scrollRef}
+        className="
+        w-full
+        overflow-x-auto
+        flex
+        gap-6
+        px-6
+        scroll-smooth
+        snap-x
+        snap-mandatory
+        hide-scrollbar
+        ">
+            {photos.map((photo, i) => (
+                <motion.div
+                key={i}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelected(photo)}
+                className="
+                    shrink-0
+                    w-[32%]
+                    cursor-pointer
+                    snap-center
+                "
             >
               <div
                 className="
                   relative
-                  aspect-[3/2]
+                  aspect-1/2
                   w-full
                   overflow-hidden
                   rounded-xl
