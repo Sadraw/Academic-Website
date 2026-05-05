@@ -77,6 +77,8 @@ export function LightboxImage({
             w-9 h-9 
             flex items-center justify-center
             transition
+            hover:cursor-pointer
+
             "
             >
 
