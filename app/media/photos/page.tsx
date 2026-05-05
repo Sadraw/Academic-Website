@@ -43,9 +43,12 @@ export default function PhotosPage() {
         backdrop-blur
         bg-black/30
         text-white
+        dark:bg-white/80
+        dark:text-black/30
         transition-all
         duration-200
         hover:bg-black/60
+        dark:hover:bg-[#98A869]
         hover:scale-110
         hover:cursor-pointer
         active:scale-95
