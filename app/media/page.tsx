@@ -99,7 +99,7 @@ export default function MediaPage() {
             className="
               relative
               w-full
-              aspect-[3/2]
+              aspect-3/2
               overflow-hidden
               rounded-xl
               shadow-lg
