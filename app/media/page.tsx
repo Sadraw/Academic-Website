@@ -129,7 +129,7 @@ export default function MediaPage() {
               w-full
               -translate-y-1/2
               -translate-x-full
-              bg-gradient-to-r
+              bg-linear-to-r
               from-transparent
               via-white/60
               to-transparent
@@ -159,7 +159,7 @@ export default function MediaPage() {
             className="
               relative
               w-full
-              aspect-[3/2]
+              aspect-3/2
               overflow-hidden
               rounded-xl
               shadow-lg
