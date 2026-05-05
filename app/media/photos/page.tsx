@@ -42,13 +42,10 @@ export default function PhotosPage() {
         rounded-full
         backdrop-blur
         bg-black/30
-        dark:bg-white
         text-white
-        dark:text-black
         transition-all
         duration-200
         hover:bg-black/60
-        dark:hover:bg-white/70
         hover:scale-110
         hover:cursor-pointer
         active:scale-95
@@ -63,80 +60,89 @@ export default function PhotosPage() {
     <main
       className="
         min-h-screen
+        px-8
+        py-16
         bg-[#98A869]
         dark:bg-zinc-900
         font-serif
-        px-8
-        py-16
-        flex
-        flex-col
-        items-center
         text-center
       "
     >
-      {/* Header */}
-      <h1 className="text-3xl mb-10">
-        <Link href="/media" className="hover:opacity-60 transition">
-          ← Media / Photos
-        </Link>
-      </h1>
+      {/* PAGE FADE-IN (same as MediaPage) */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
+        className="pt-12 flex flex-col items-center"
+      >
+        {/* Header */}
+        <h1 className="text-[2.3rem] mb-10 tracking-[1px]">
+          <Link
+            href="/media"
+            className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
+          >
+            ← Media / Photos
+          </Link>
+        </h1>
 
-      {/* Gallery wrapper */}
-      <div className="relative w-full max-w-6xl px-10">
-
-        {/* LEFT ARROW */}
-        <ArrowButton
-          direction="left"
-          icon={<ChevronLeft size={22} />}
-        />
-
-        {/* RIGHT ARROW */}
-        <ArrowButton
-          direction="right"
-          icon={<ChevronRight size={22} />}
-        />
-
-        {/* SCROLL AREA */}
-        <div
-          ref={scrollRef}
-          className="
-            flex
-            gap-6
-            px-6
-            overflow-x-auto
-            scroll-smooth
-            snap-x
-            snap-mandatory
-            hide-scrollbar
-          "
+        {/* GALLERY ANIMATION (same idea as image block) */}
+        <motion.div
+          initial={{ opacity: 0, y: -25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1,
+            ease: "easeOut",
+            delay: 0.9,
+          }}
+          className="relative w-full max-w-6xl px-10"
         >
-          {photos.map((photo, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setSelected(photo)}
-              className="shrink-0 w-[32%] cursor-pointer snap-center"
-            >
-              <div 
-              className="
-              relative 
-              aspect-1/2 
-              w-full 
-              overflow-hidden 
-              rounded-xl 
-              shadow-lg">
-                <Image
-                  src={photo.src}
-                  alt={photo.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+          {/* LEFT ARROW */}
+          <ArrowButton
+            direction="left"
+            icon={<ChevronLeft size={22} />}
+          />
+
+          {/* RIGHT ARROW */}
+          <ArrowButton
+            direction="right"
+            icon={<ChevronRight size={22} />}
+          />
+
+          {/* SCROLL AREA */}
+          <div
+            ref={scrollRef}
+            className="
+              flex
+              gap-6
+              px-6
+              overflow-x-auto
+              scroll-smooth
+              snap-x
+              snap-mandatory
+              hide-scrollbar
+            "
+          >
+            {photos.map((photo, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelected(photo)}
+                className="shrink-0 w-[32%] cursor-pointer snap-center"
+              >
+                <div className="relative aspect-1/2 w-full overflow-hidden rounded-xl shadow-lg">
+                  <Image
+                    src={photo.src}
+                    alt={photo.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
 
       {/* LIGHTBOX */}
       {selected && (
