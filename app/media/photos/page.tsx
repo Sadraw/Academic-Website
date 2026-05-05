@@ -6,48 +6,58 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { LightboxImage } from "../../components/LightboxImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const photos = [
-  {
-    src: "/images/the-man-in-the-sun.jpg",
-    title: "The Man in the Sun",
-    date: "29.04.2026",
-    description: "Captured during a late afternoon near the university",
-  },
-  {
-    src: "/images/the-man-in-the-sun.jpg",
-    title: "Second Frame",
-    date: "30.04.2026",
-    description: "A quiet moment in motion",
-  },
-  {
-    src: "/images/the-man-in-the-sun.jpg",
-    title: "Third Frame",
-    date: "01.05.2026",
-    description: "Light and shadow study",
-  },
-  {
-    src: "/images/the-man-in-the-sun.jpg",
-    title: "Fourth Frame",
-    date: "02.05.2026",
-    description: "Evening atmosphere study",
-  },
-];
+import { photos } from "./photos.data";
 
 export default function PhotosPage() {
   const [selected, setSelected] = useState<any>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
 
-    const amount = scrollRef.current.offsetWidth * 0.8;
-
     scrollRef.current.scrollBy({
-      left: direction === "left" ? -amount : amount,
+      left:
+        dir === "left"
+          ? -scrollRef.current.offsetWidth * 0.8
+          : scrollRef.current.offsetWidth * 0.8,
       behavior: "smooth",
     });
   };
+
+  const ArrowButton = ({
+    direction,
+    icon,
+  }: {
+    direction: "left" | "right";
+    icon: React.ReactNode;
+  }) => (
+    <button
+      onClick={() => scroll(direction)}
+      className={`
+        absolute
+        top-1/2
+        -translate-y-1/2
+        z-10
+        p-3
+        rounded-full
+        backdrop-blur
+        bg-black/30
+        dark:bg-white
+        text-white
+        dark:text-black
+        transition-all
+        duration-200
+        hover:bg-black/60
+        dark:hover:bg-white/70
+        hover:scale-110
+        hover:cursor-pointer
+        active:scale-95
+        ${direction === "left" ? "-left-6" : "-right-6"}
+      `}
+    >
+      {icon}
+    </button>
+  );
 
   return (
     <main
@@ -72,87 +82,50 @@ export default function PhotosPage() {
       </h1>
 
       {/* Gallery wrapper */}
-      <div className="relative w-full max-w-6xl">
+      <div className="relative w-full max-w-6xl px-10">
 
         {/* LEFT ARROW */}
-        <button
-          onClick={() => scroll("left")}
-          className="
-            absolute
-            left-0
-            top-1/2
-            -translate-y-1/2
-            z-10
-            bg-black/30
-            hover:bg-black/50
-            text-white
-            p-3
-            rounded-full
-            backdrop-blur
-            transition
-          "
-        >
-          <ChevronLeft size={22} />
-        </button>
+        <ArrowButton
+          direction="left"
+          icon={<ChevronLeft size={22} />}
+        />
 
         {/* RIGHT ARROW */}
-        <button
-          onClick={() => scroll("right")}
-          className="
-            absolute
-            right-0
-            top-1/2
-            -translate-y-1/2
-            z-10
-            bg-black/30
-            hover:bg-black/50
-            text-white
-            p-3
-            rounded-full
-            backdrop-blur
-            transition
-          "
-        >
-          <ChevronRight size={22} />
-        </button>
+        <ArrowButton
+          direction="right"
+          icon={<ChevronRight size={22} />}
+        />
 
         {/* SCROLL AREA */}
         <div
-        ref={scrollRef}
-        className="
-        w-full
-        overflow-x-auto
-        flex
-        gap-6
-        px-6
-        scroll-smooth
-        snap-x
-        snap-mandatory
-        hide-scrollbar
-        ">
-            {photos.map((photo, i) => (
-                <motion.div
-                key={i}
-                whileHover={{ scale: 1.03 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => setSelected(photo)}
-                className="
-                    shrink-0
-                    w-[32%]
-                    cursor-pointer
-                    snap-center
-                "
+          ref={scrollRef}
+          className="
+            flex
+            gap-6
+            px-6
+            overflow-x-auto
+            scroll-smooth
+            snap-x
+            snap-mandatory
+            hide-scrollbar
+          "
+        >
+          {photos.map((photo, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setSelected(photo)}
+              className="shrink-0 w-[32%] cursor-pointer snap-center"
             >
-              <div
-                className="
-                  relative
-                  aspect-1/2
-                  w-full
-                  overflow-hidden
-                  rounded-xl
-                  shadow-lg
-                "
-              >
+              <div 
+              className="
+              relative 
+              aspect-1/2 
+              w-full 
+              overflow-hidden 
+              rounded-xl 
+              shadow-lg">
                 <Image
                   src={photo.src}
                   alt={photo.title}
