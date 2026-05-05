@@ -36,6 +36,9 @@ export default function MediaPage() {
             &larr; Media
           </Link>
         </h1>
+        <Link href="/media/photos">
+  Go to Photos
+</Link>
 
         {/* Subtitle */}
         <p
