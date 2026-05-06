@@ -81,7 +81,7 @@ export default function VideoPage() {
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
-          className="relative w-full max-w-4xl"
+          className="relative w-full max-w-3xl"
         >
           <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
           <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
@@ -107,13 +107,13 @@ export default function VideoPage() {
                 transition={{ duration: 0.3 }}
                 className="shrink-0 w-full snap-center"
               >
-                {/* OUTER FRAME (shadow lives here) */}
-                <div className="w-full rounded-xl bg-black/5 dark:bg-white/5 p-3 shadow-xl">
+                {/* SMALLER OUTER FRAME */}
+                <div className="w-full rounded-lg bg-black/10 dark:bg-white/5 p-2 shadow-xl">
                   
-                  {/* INNER VIDEO  */}
-                  <div className="w-full aspect-video flex items-center justify-center">
+                  {/* VIDEO */}
+                  <div className="w-full aspect-[16/9] flex items-center justify-center">
                     <iframe
-                      className="w-full h-full rounded-lg"
+                      className="w-[95%] h-[95%] rounded-md"
                       src={`https://www.youtube.com/embed/${video.id}`}
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -123,8 +123,8 @@ export default function VideoPage() {
                 </div>
 
                 {/* TEXT */}
-                <div className="mt-3 mb-3 text-[#383737] dark:text-zinc-100">
-                  <p className="text-[1.1rem]">{video.title}</p>
+                <div className="mt-4 text-[#383737] dark:text-zinc-100">
+                  <p className="text-[1.2rem]">{video.title}</p>
                   <p className="text-sm opacity-70">{video.date}</p>
                 </div>
               </motion.div>
