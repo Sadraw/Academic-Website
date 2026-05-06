@@ -7,7 +7,7 @@ const links = [
   { href: "/media", label: "Media" },
   { href: "/media/photos", label: "Photos" },
   { href: "/media/videos", label: "Videos" },
-  { href: "/media/Songs", label: "Songs" },
+  { href: "/media/songs", label: "Songs" },
 
 ];
 

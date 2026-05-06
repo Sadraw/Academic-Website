@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { tracks } from "./soundcloud.data";
 import { Navbar } from "@/app/components/Navbar";
 
-export default function SoundCloudPage() {
+export default function Page() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: "left" | "right") => {
@@ -16,8 +16,8 @@ export default function SoundCloudPage() {
     scrollRef.current.scrollBy({
       left:
         dir === "left"
-          ? -scrollRef.current.offsetWidth * 0.8
-          : scrollRef.current.offsetWidth * 0.8,
+          ? -scrollRef.current.offsetWidth * 0.9
+          : scrollRef.current.offsetWidth * 0.9,
       behavior: "smooth",
     });
   };
@@ -50,7 +50,7 @@ export default function SoundCloudPage() {
         hover:scale-110
         cursor-pointer
         active:scale-95
-        ${direction === "left" ? "-left-6" : "-right-6"}
+        ${direction === "left" ? "-left-14" : "-right-14"}
       `}
     >
       {icon}
@@ -58,18 +58,7 @@ export default function SoundCloudPage() {
   );
 
   return (
-    <main
-      className="
-        min-h-screen
-        px-8
-        py-16
-        bg-[#98A869]
-        dark:bg-zinc-900
-        font-serif
-        text-center
-      "
-    >
-      {/* FADE IN */}
+    <main className="min-h-screen px-8 py-16 bg-[#98A869] dark:bg-zinc-900 font-serif text-center">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -79,7 +68,7 @@ export default function SoundCloudPage() {
         <Navbar />
 
         {/* HEADER */}
-        <h1 className="text-[2.3rem] mt-8 mb-10 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-6 mb-10 tracking-[1px]">
           <Link
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
@@ -88,33 +77,28 @@ export default function SoundCloudPage() {
           </Link>
         </h1>
 
-        {/* SCROLL WRAPPER */}
+        {/* CAROUSEL */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 1,
-            ease: "easeOut",
-            delay: 0.9,
-          }}
-          className="relative w-full max-w-6xl px-10"
+          transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
+          className="relative w-full max-w-3xl"
         >
-          {/* ARROWS */}
-          <ArrowButton direction="left" icon={<ChevronLeft size={22} />} />
-          <ArrowButton direction="right" icon={<ChevronRight size={22} />} />
+          <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
+          <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
 
           {/* SCROLL AREA */}
           <div
             ref={scrollRef}
             className="
               flex
-              gap-6
-              px-6
+              gap-10
               overflow-x-auto
               scroll-smooth
               snap-x
               snap-mandatory
               hide-scrollbar
+              px-6
             "
           >
             {tracks.map((track, i) => (
@@ -122,14 +106,13 @@ export default function SoundCloudPage() {
                 key={i}
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="shrink-0 w-[80%] snap-center"
+                className="shrink-0 w-full snap-center"
               >
-                <div className="rounded-xl overflow-hidden shadow-lg">
+                {/* PLAYER CARD */}
+                <div className="w-full rounded-lg bg-black/10 dark:bg-white/5 p-3 shadow-xl">
                   <iframe
                     width="100%"
-                    height="166"
-                    scrolling="no"
-                    frameBorder="no"
+                    height="120"
                     allow="autoplay"
                     src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${track.id}&color=%2398a869&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false`}
                   />
@@ -139,6 +122,9 @@ export default function SoundCloudPage() {
                 <div className="mt-4 text-[#383737] dark:text-zinc-100">
                   <p className="text-[1.2rem]">{track.title}</p>
                   <p className="text-sm opacity-70">{track.date}</p>
+                  <p className="text-sm opacity-60 mt-1">
+                    {track.description}
+                  </p>
                 </div>
               </motion.div>
             ))}
