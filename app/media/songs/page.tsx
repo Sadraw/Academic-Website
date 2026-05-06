@@ -2,19 +2,18 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Navbar } from "@/app/components/Navbar";
 import { songs } from "./soundcloud.data";
 
 export default function SongsPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [breath, setBreath] = useState(1);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const sortedSongs = [...songs].sort(
     (a, b) =>
-      new Date(b.releasedAt).getTime() -
-      new Date(a.releasedAt).getTime()
+      new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime()
   );
 
   const scroll = (dir: "left" | "right") => {
@@ -29,15 +28,6 @@ export default function SongsPage() {
     });
   };
 
-  // 🌬️ BREATHING BACKGROUND STATE
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBreath((prev) => (prev === 1 ? 1.015 : 1));
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const ArrowButton = ({
     direction,
     icon,
@@ -51,70 +41,99 @@ export default function SongsPage() {
         absolute
         top-1/2
         -translate-y-1/2
-        z-10
+        z-30
         p-3
         rounded-full
         backdrop-blur
-        bg-black/30
+        bg-black/40
         text-white
         transition-all
-        duration-200
-        hover:bg-black/60
+        hover:bg-black/70
         hover:scale-110
-        cursor-pointer
         active:scale-95
-        ${direction === "left" ? "-left-5" : "-right-5"}
+        ${direction === "left" ? "-left-6" : "-right-6"}
       `}
     >
       {icon}
     </button>
   );
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", resize);
+
+    let t = 0;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, w, h);
+
+      const bars = 80;
+      const barWidth = w / bars;
+
+      for (let i = 0; i < bars; i++) {
+        const x = i * barWidth;
+
+        const wave =
+          Math.sin(i * 0.3 + t * 0.08) * 50 +
+          Math.cos(i * 0.15 + t * 0.05) * 30;
+
+        const height = 120 + wave;
+
+        ctx.fillStyle = `rgba(255,255,255,${0.05 + i * 0.001})`;
+
+        ctx.fillRect(x, h / 2 - height / 2, barWidth * 0.6, height);
+      }
+
+      t++;
+      requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
   return (
-    <main className="relative min-h-screen px-8 py-16 font-serif text-center overflow-hidden bg-[#98A869] dark:bg-zinc-900">
+    <main className="relative min-h-screen px-8 py-16 bg-[#98A869] dark:bg-zinc-900 font-serif text-center overflow-hidden">
 
-      {/* 🌫️ AMBIENT SOUND ATMOSPHERE */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* 🎧 BACKGROUND LAYER */}
+      <canvas
+        ref={canvasRef}
+        className="absolutegit status inset-0 w-full h-full z-0 opacity-80"
+      />
 
-        {/* soft orb top-left */}
-        <div
-          className="absolute w-[600px] h-[600px] rounded-full blur-[130px] opacity-20 dark:opacity-10"
-          style={{
-            background: "radial-gradient(circle, white, transparent 70%)",
-            top: "5%",
-            left: "5%",
-            transform: `scale(${breath})`,
-            transition: "transform 4s ease-in-out",
-          }}
-        />
-
-        {/* soft orb bottom-right */}
-        <div
-          className="absolute w-[700px] h-[700px] rounded-full blur-[160px] opacity-15 dark:opacity-10"
-          style={{
-            background: "radial-gradient(circle, black, transparent 70%)",
-            bottom: "-10%",
-            right: "-10%",
-            transform: `scale(${1.02 - breath * 0.01})`,
-            transition: "transform 4s ease-in-out",
-          }}
-        />
-
-        {/* subtle vertical haze */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5 dark:to-white/5" />
-      </div>
+      {/* soft overlay */}
+      <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/20 z-10 pointer-events-none" />
 
       {/* CONTENT */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
-        className="relative z-10 pt-12 flex flex-col items-center"
+        transition={{ duration: 0.9 }}
+        className="relative z-20 pt-12 flex flex-col items-center"
       >
-        <Navbar />
+        {/* NAVBAR (now SAFE) */}
+        <div className="relative z-30 w-full">
+          <Navbar />
+        </div>
 
-        {/* HEADER */}
-        <h1 className="text-[2.3rem] mt-8 mb-3 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-8 mb-3 tracking-[1px] z-20">
           <Link
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-60 transition"
@@ -123,58 +142,40 @@ export default function SongsPage() {
           </Link>
         </h1>
 
-        {/* SUBTITLE */}
-        <p className="text-[1.1rem] text-[#383737] dark:text-zinc-100 mb-6 max-w-xl">
-          A growing archive of original music and sonic experiments.
+        <p className="text-[1.1rem] text-[#383737] dark:text-zinc-100 mb-6 z-20">
+          A Growing Archive of Original Music and Sonic Experiments.
         </p>
 
         {/* CAROUSEL */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
-          className="relative w-full max-w-5xl"
+          className="relative w-full max-w-5xl z-20"
         >
           <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
           <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
 
           <div
             ref={scrollRef}
-            className="
-              flex
-              gap-10
-              overflow-x-auto
-              scroll-smooth
-              snap-x
-              snap-mandatory
-              hide-scrollbar
-              px-6
-            "
+            className="flex gap-10 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar px-6"
           >
             {sortedSongs.map((song, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.25 }}
-                className="
-                  shrink-0
-                  w-full
-                  snap-center
-                  flex
-                  flex-col
-                  items-center
-                "
+                className=" mt-15 shrink-0 w-full snap-center flex flex-col items-center"
               >
-                <div className="w-[85%] max-w-2xl rounded-xl overflow-hidden shadow-lg">
+                <div className="w-[85%] max-w-2xl rounded-xl overflow-hidden shadow-xl bg-black/10 backdrop-blur-md">
                   <iframe
                     width="100%"
+                    
                     height="166"
                     scrolling="no"
                     frameBorder="no"
                     allow="autoplay"
                     src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
                       song.url
-                    )}&color=%2398A869&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
+                    )}&color=%2398A869`}
                   />
                 </div>
 

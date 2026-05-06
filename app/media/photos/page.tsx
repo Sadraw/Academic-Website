@@ -80,11 +80,11 @@ export default function PhotosPage() {
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
         className="pt-12 flex flex-col items-center"
       >
-        <div className="mt-2">
-          <Navbar/>
+      {/* 🔝 NAVBAR */}
+      <div className="mt-1/2">
+      <Navbar />
 
-        </div>
-
+      </div>
         
         {/* Header */}
         <h1 className="text-[2.3rem] mt-8 mb-5 tracking-[1px]">

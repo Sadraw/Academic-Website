@@ -32,34 +32,19 @@ export default function RootLayout({
     >
       <body className="relative min-h-screen flex flex-col bg-[#98A869] dark:bg-zinc-900">
 
-  {/* animated light layer */}
-  <div
-    className="
-      fixed inset-0 -z-10
-      transition-opacity duration-700 ease-in-out
-      bg-[#98A869]
-      dark:bg-zinc-900
-      opacity-100 dark:opacity-0
-    "
-  />
+  {/* background layers */}
+  <div className="fixed inset-0 -z-20 bg-[#98A869] dark:bg-zinc-900" />
 
-  {/* animated dark layer */}
-  <div
-    className="
-      fixed inset-0 -z-10
-      transition-opacity duration-900 delay-75 ease-in-out
-      bg-zinc-900
-      opacity-0 dark:opacity-100
-    "
-  />
+  {/* optional subtle gradient overlay (safe for all pages) */}
+  <div className="fixed inset-0 -z-10 opacity-20 dark:opacity-10 bg-gradient-to-b from-white/30 to-transparent dark:from-white/5 pointer-events-none" />
 
-  <Providers>
+    <Providers>
 
-    <nav className="absolute top-0 left-0 right-0 flex justify-end px-8 py-4">
+    <nav className=" fixed top-0 left-0 right-0 flex justify-end px-8 py-4">
       <ThemeToggle />
     </nav>
 
-    {children}
+              {children}
 
   </Providers>
 
@@ -67,3 +52,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+
