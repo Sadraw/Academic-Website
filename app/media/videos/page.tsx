@@ -16,8 +16,8 @@ export default function VideoPage() {
     scrollRef.current.scrollBy({
       left:
         dir === "left"
-          ? -scrollRef.current.offsetWidth
-          : scrollRef.current.offsetWidth,
+          ? -scrollRef.current.offsetWidth * 0.9
+          : scrollRef.current.offsetWidth * 0.9,
       behavior: "smooth",
     });
   };
@@ -35,7 +35,7 @@ export default function VideoPage() {
         absolute
         top-1/2
         -translate-y-1/2
-        z-12
+        z-10
         p-3
         rounded-full
         backdrop-blur
@@ -50,7 +50,7 @@ export default function VideoPage() {
         hover:scale-110
         cursor-pointer
         active:scale-95
-        ${direction === "left" ? "-left-15" : "-right-15"}
+        ${direction === "left" ? "-left-14" : "-right-14"}
       `}
     >
       {icon}
@@ -58,18 +58,7 @@ export default function VideoPage() {
   );
 
   return (
-    <main
-      className="
-        min-h-screen
-        px-8
-        py-16
-        bg-[#98A869]
-        dark:bg-zinc-900
-        font-serif
-        text-center
-      "
-    >
-      {/* PAGE FADE-IN */}
+    <main className="min-h-screen px-8 py-16 bg-[#98A869] dark:bg-zinc-900 font-serif text-center">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -78,36 +67,24 @@ export default function VideoPage() {
       >
         <Navbar />
 
-        {/* HEADER */}
-        <h1 className="text-[2.3rem] mt-8 mb-10 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-6 mb-10 tracking-[1px]">
           <Link
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
           >
-            ← Media / Video
+            ← Videos
           </Link>
         </h1>
 
-        {/* SCROLL SECTION */}
+        {/* CAROUSEL */}
         <motion.div
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 1,
-            ease: "easeOut",
-            delay: 0.9,
-          }}
-          className="relative w-full max-w-5xl"
+          transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
+          className="relative w-full max-w-4xl"
         >
-          {/* ARROWS */}
-          <ArrowButton
-            direction="left"
-            icon={<ChevronLeft size={26} />}
-          />
-          <ArrowButton
-            direction="right"
-            icon={<ChevronRight size={26} />}
-          />
+          <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
+          <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
 
           {/* SCROLL AREA */}
           <div
@@ -120,41 +97,34 @@ export default function VideoPage() {
               snap-x
               snap-mandatory
               hide-scrollbar
+              px-6
             "
           >
             {videos.map((video, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.01 }}
+                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="
-                  shrink-0
-                  w-full
-                  snap-center
-                "
+                className="shrink-0 w-full snap-center"
               >
-                <div
-                  className="
-                    relative
-                    w-full
-                    aspect-video
-                    overflow-hidden
-                    rounded-xl
-                    shadow-xl
-                  "
-                >
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                {/* OUTER FRAME (shadow lives here) */}
+                <div className="w-full rounded-xl bg-black/5 dark:bg-white/5 p-3 shadow-xl">
+                  
+                  {/* INNER VIDEO  */}
+                  <div className="w-full aspect-video flex items-center justify-center">
+                    <iframe
+                      className="w-full h-full rounded-lg"
+                      src={`https://www.youtube.com/embed/${video.id}`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
 
                 {/* TEXT */}
-                <div className="mt-4 text-[#383737] dark:text-zinc-100">
-                  <p className="text-[1.2rem]">{video.title}</p>
+                <div className="mt-3 mb-3 text-[#383737] dark:text-zinc-100">
+                  <p className="text-[1.1rem]">{video.title}</p>
                   <p className="text-sm opacity-70">{video.date}</p>
                 </div>
               </motion.div>
