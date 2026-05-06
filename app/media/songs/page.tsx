@@ -10,7 +10,6 @@ import { songs } from "./soundcloud.data";
 export default function SongsPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // ✅ AUTO SORT NEWEST → OLDEST
   const sortedSongs = [...songs].sort(
     (a, b) =>
       new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime()
