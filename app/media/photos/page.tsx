@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { LightboxImage } from "../../components/LightboxImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { photos } from "./photos.data";
+import { Navbar } from "@/app/components/Navbar";
 
 export default function PhotosPage() {
   const [selected, setSelected] = useState<any>(null);
@@ -60,6 +61,7 @@ export default function PhotosPage() {
   );
 
   return (
+
     <main
       className="
         min-h-screen
@@ -78,8 +80,12 @@ export default function PhotosPage() {
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
         className="pt-12 flex flex-col items-center"
       >
+
+        <Navbar/>
+
+        
         {/* Header */}
-        <h1 className="text-[2.3rem] mb-10 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-8 mb-10 tracking-[1px]">
           <Link
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
