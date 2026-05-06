@@ -4,11 +4,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { tracks } from "./soundcloud.data";
 import { Navbar } from "@/app/components/Navbar";
+import { songs } from "./soundcloud.data";
 
-export default function Page() {
+export default function SongsPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // ✅ AUTO SORT NEWEST → OLDEST
+  const sortedSongs = [...songs].sort(
+    (a, b) =>
+      new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime()
+  );
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -16,8 +22,8 @@ export default function Page() {
     scrollRef.current.scrollBy({
       left:
         dir === "left"
-          ? -scrollRef.current.offsetWidth * 0.9
-          : scrollRef.current.offsetWidth * 0.9,
+          ? -scrollRef.current.offsetWidth * 0.8
+          : scrollRef.current.offsetWidth * 0.8,
       behavior: "smooth",
     });
   };
@@ -41,16 +47,13 @@ export default function Page() {
         backdrop-blur
         bg-black/30
         text-white
-        dark:bg-white/80
-        dark:text-black/30
         transition-all
         duration-200
         hover:bg-black/60
-        dark:hover:bg-[#98A869]
         hover:scale-110
         cursor-pointer
         active:scale-95
-        ${direction === "left" ? "-left-14" : "-right-14"}
+        ${direction === "left" ? "-left-5" : "-right-5"}
       `}
     >
       {icon}
@@ -59,6 +62,7 @@ export default function Page() {
 
   return (
     <main className="min-h-screen px-8 py-16 bg-[#98A869] dark:bg-zinc-900 font-serif text-center">
+      
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,12 +72,12 @@ export default function Page() {
         <Navbar />
 
         {/* HEADER */}
-        <h1 className="text-[2.3rem] mt-6 mb-10 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-8 mb-10 tracking-[1px]">
           <Link
             href="/media"
-            className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
+            className="text-[#1F2520] dark:text-[#98A869] hover:opacity-60 transition"
           >
-            ← SoundCloud
+            ← Music
           </Link>
         </h1>
 
@@ -82,8 +86,9 @@ export default function Page() {
           initial={{ opacity: 0, y: -25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
-          className="relative w-full max-w-3xl"
+          className="relative w-full max-w-5xl"
         >
+          {/* ARROWS */}
           <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
           <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
 
@@ -101,29 +106,39 @@ export default function Page() {
               px-6
             "
           >
-            {tracks.map((track, i) => (
+            {sortedSongs.map((song, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="shrink-0 w-full snap-center"
+                className="
+                  shrink-0
+                  w-full
+                  snap-center
+                  flex
+                  flex-col
+                  items-center
+                "
               >
-                {/* PLAYER CARD */}
-                <div className="w-full rounded-lg bg-black/10 dark:bg-white/5 p-3 shadow-xl">
+                {/* PLAYER */}
+                <div className="w-[85%] max-w-2xl rounded-xl overflow-hidden shadow-lg">
                   <iframe
                     width="100%"
-                    height="120"
+                    height="166"
+                    scrolling="no"
+                    frameBorder="no"
                     allow="autoplay"
-                    src={`https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${track.id}&color=%2398a869&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false`}
+                    src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+                      song.url
+                    )}&color=%2398A869&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false`}
                   />
                 </div>
 
                 {/* TEXT */}
-                <div className="mt-4 text-[#383737] dark:text-zinc-100">
-                  <p className="text-[1.2rem]">{track.title}</p>
-                  <p className="text-sm opacity-70">{track.date}</p>
-                  <p className="text-sm opacity-60 mt-1">
-                    {track.description}
+                <div className="mt-5 text-[#383737] dark:text-zinc-100">
+                  <p className="text-[1.2rem]">{song.title}</p>
+                  <p className="text-sm opacity-70">{song.releasedAt}</p>
+                  <p className="text-sm mt-1 opacity-60 max-w-md mx-auto">
+                    {song.description}
                   </p>
                 </div>
               </motion.div>
