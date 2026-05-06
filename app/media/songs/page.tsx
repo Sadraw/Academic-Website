@@ -72,7 +72,7 @@ export default function SongsPage() {
         <Navbar />
 
         {/* HEADER */}
-        <h1 className="text-[2.3rem] mt-8 mb-10 tracking-[1px]">
+        <h1 className="text-[2.3rem] mt-8 mb-3 tracking-[1px]">
           <Link
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-60 transition"
@@ -80,6 +80,52 @@ export default function SongsPage() {
             ← Music
           </Link>
         </h1>
+        {/* Subtitle */}
+        <p
+          className="
+            text-[1.1rem]
+            leading-relaxed
+            tracking-wide
+            text-[#383737]
+            dark:text-zinc-100
+            group
+            relative
+            overflow-hidden
+            cursor-default
+            mb-6
+          "
+        >
+          <span className="relative z-10">
+            
+            A Growing Archive of Original Music and Sonic Experiments.
+
+          </span>
+
+          <span
+            className="
+              pointer-events-none
+              absolute
+              left-0
+              top-1/2
+              h-[45%]
+              w-full
+              -translate-y-1/2
+              -translate-x-full
+              bg-linear-to-r
+              from-transparent
+              via-white/60
+              to-transparent
+              blur-sm
+              opacity-10
+              group-hover:opacity-40
+              group-hover:translate-x-full
+              transition-all
+              duration-1000
+              ease-out
+            "
+          />
+        </p>
+
 
         {/* CAROUSEL */}
         <motion.div

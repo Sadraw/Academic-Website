@@ -51,7 +51,7 @@ export default function MediaPage() {
         {/* Subtitle */}
         <p
           className="
-            text-[1.3rem]
+            text-[1.1rem]
             leading-relaxed
             tracking-wide
             text-[#383737]
@@ -64,7 +64,7 @@ export default function MediaPage() {
           "
         >
           <span className="relative z-10">
-            Visuals · Sounds · Digital Projects
+            Where Image, Sound, and Motion Quietly Overlap.
           </span>
 
           <span
