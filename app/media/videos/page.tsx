@@ -35,7 +35,7 @@ export default function VideoPage() {
         absolute
         top-1/2
         -translate-y-1/2
-        z-10
+        z-12
         p-3
         rounded-full
         backdrop-blur
@@ -50,7 +50,7 @@ export default function VideoPage() {
         hover:scale-110
         cursor-pointer
         active:scale-95
-        ${direction === "left" ? "-left-10" : "-right-10"}
+        ${direction === "left" ? "-left-15" : "-right-15"}
       `}
     >
       {icon}
