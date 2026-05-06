@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { LightboxImage } from "../components/LightboxImage";
+import { Navbar } from "../components/Navbar";
 
 export default function MediaPage() {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,9 @@ export default function MediaPage() {
         text-center
       "
     >
+      {/* 🔝 NAVBAR */}
+      <Navbar />
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -31,7 +35,7 @@ export default function MediaPage() {
         className="pt-12 flex flex-col items-center w-full max-w-3xl"
       >
         {/* Title */}
-        <h1 className="text-[2.3rem] mb-4 tracking-[1px] text-center">
+        <h1 className="text-[2.3rem] mb-6 tracking-[1px]">
           <Link
             href="/"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
@@ -39,65 +43,8 @@ export default function MediaPage() {
             &larr; Media
           </Link>
         </h1>
+        
 
-        {/* Elegant Sub Link */}
-        <div className="mb-6 group relative inline-block">
-          <Link
-            href="/media/photos"
-            className="
-              text-[1.1rem]
-              tracking-wide
-              text-[#383737]
-              dark:text-zinc-100
-              transition
-              hover:opacity-80
-            "
-          >
-            <span className="relative z-10">
-              → View Photography
-            </span>
-
-            {/* underline */}
-            <span
-              className="
-                absolute
-                left-0
-                bottom-0
-                h-px
-                w-0
-                bg-current
-                transition-all
-                duration-500
-                group-hover:w-full
-              "
-            />
-
-            {/* glow */}
-            <span
-              className="
-                pointer-events-none
-                absolute
-                left-0
-                top-1/2
-                h-[40%]
-                w-full
-                -translate-y-1/2
-                -translate-x-full
-                bg-linear-to-r
-                from-transparent
-                via-white/60
-                to-transparent
-                blur-sm
-                opacity-0
-                group-hover:opacity-40
-                group-hover:translate-x-full
-                transition-all
-                duration-1000
-                ease-out
-              "
-            />
-          </Link>
-        </div>
 
         {/* Subtitle */}
         <p
@@ -118,7 +65,6 @@ export default function MediaPage() {
             Visuals · Sounds · Digital Projects
           </span>
 
-          {/* glow sweep */}
           <span
             className="
               pointer-events-none
@@ -129,7 +75,7 @@ export default function MediaPage() {
               w-full
               -translate-y-1/2
               -translate-x-full
-              bg-linear-to-r
+              bg-gradient-to-r
               from-transparent
               via-white/60
               to-transparent
@@ -159,7 +105,7 @@ export default function MediaPage() {
             className="
               relative
               w-full
-              aspect-3/2
+              aspect-[3/2]
               overflow-hidden
               rounded-xl
               shadow-lg
@@ -193,3 +139,4 @@ export default function MediaPage() {
     </main>
   );
 }
+
