@@ -80,8 +80,10 @@ export default function PhotosPage() {
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
         className="pt-12 flex flex-col items-center"
       >
+        <div className="mt-2">
+          <Navbar/>
 
-        <Navbar/>
+        </div>
 
         
         {/* Header */}
@@ -90,7 +92,7 @@ export default function PhotosPage() {
             href="/media"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
           >
-            ← Media / Photos
+            ← Photos
           </Link>
         </h1>
 
@@ -137,7 +139,7 @@ export default function PhotosPage() {
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.3 }}
                 onClick={() => setSelected(photo)}
-                className="shrink-0 w-[32%] cursor-pointer snap-center"
+                className="shrink-0 w-[25%] cursor-pointer snap-center"
               >
                 <div className="relative aspect-1/2 w-full overflow-hidden rounded-xl shadow-lg">
                   <Image
