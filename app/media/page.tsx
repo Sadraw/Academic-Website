@@ -26,16 +26,18 @@ export default function MediaPage() {
       "
     >
       {/* 🔝 NAVBAR */}
+      <div className="mt-13">
       <Navbar />
 
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
-        className="pt-12 flex flex-col items-center w-full max-w-3xl"
+        className="pt-10 flex flex-col items-center w-full max-w-3xl"
       >
         {/* Title */}
-        <h1 className="text-[2.3rem] mb-6 tracking-[1px]">
+        <h1 className="text-[2.3rem] mb-3 tracking-[1px]">
           <Link
             href="/"
             className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
@@ -58,7 +60,7 @@ export default function MediaPage() {
             relative
             overflow-hidden
             cursor-default
-            mb-10
+            mb-6
           "
         >
           <span className="relative z-10">
@@ -75,7 +77,7 @@ export default function MediaPage() {
               w-full
               -translate-y-1/2
               -translate-x-full
-              bg-gradient-to-r
+              bg-linear-to-r
               from-transparent
               via-white/60
               to-transparent
@@ -105,7 +107,7 @@ export default function MediaPage() {
             className="
               relative
               w-full
-              aspect-[3/2]
+              aspect-3/2
               overflow-hidden
               rounded-xl
               shadow-lg
