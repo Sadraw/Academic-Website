@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Sadra Daneshmand",
   description: "MA English Studies · Media · Discourse",
   icons: {
-    icon: "@/app/public/logo.png"
+    icon: "/logo.png"
   }
 };
 
