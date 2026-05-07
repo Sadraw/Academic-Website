@@ -115,7 +115,7 @@ export default function SongsPage() {
       {/* 🎧 BACKGROUND LAYER */}
       <canvas
         ref={canvasRef}
-        className="absolutegit status inset-0 w-full h-full z-0 opacity-80"
+        className="absolute inset-0 w-full h-full z-0 opacity-80"
       />
 
       {/* soft overlay */}
