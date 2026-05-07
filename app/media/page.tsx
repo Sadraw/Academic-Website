@@ -26,7 +26,7 @@ export default function MediaPage() {
       "
     >
       {/* 🔝 NAVBAR */}
-      <div className="mt-12">
+      <div className="mt-12  ">
       <Navbar />
 
       </div>

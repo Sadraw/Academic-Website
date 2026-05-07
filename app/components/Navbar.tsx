@@ -20,8 +20,8 @@ export function Navbar() {
             <Link
               href={link.href}
               className="
-                text-[#1F2520]
-                dark:text-[#98A869]
+                text-[#2F5D50] 
+                dark:text-zinc-400
                 transition
                 hover:opacity-80
               "
@@ -34,7 +34,7 @@ export function Navbar() {
                   absolute
                   left-0
                   bottom-0
-                  h-[1px]
+                  h-px
                   w-0
                   bg-current
                   transition-all
