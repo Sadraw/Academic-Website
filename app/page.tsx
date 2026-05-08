@@ -122,6 +122,7 @@ export default function Home() {
   <div
     className="
       border-l
+      border-r
       border-[#2F5D50]/40
       pl-6
       py-2
