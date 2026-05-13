@@ -5,5 +5,3 @@ excerpt: "A study of emotional residue in online spaces."
 status: "Published"
 pdf: "https://duauswkvdasownwklnbw.supabase.co/storage/v1/object/public/papers/digital_melancholy.pdf"
 ---
-This is a test research paper.
-Looks like we are doing okay.

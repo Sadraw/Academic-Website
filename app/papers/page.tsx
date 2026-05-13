@@ -21,6 +21,7 @@ export default function PapersPage() {
       excerpt: data.excerpt,
       year: data.year,
       status: data.status,
+      pdf: data.pdf,
     };
   });
 
