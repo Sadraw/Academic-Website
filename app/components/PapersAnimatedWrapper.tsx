@@ -10,6 +10,7 @@ type Paper = {
   excerpt: string;
   year: string;
   status: string;
+  pdfUrl: string;
 };
 
 const PAGE_SIZE = 3;
@@ -44,7 +45,10 @@ export function PapersViewer({ papers }: { papers: Paper[] }) {
                 <span className="inline-block mb-2 text-[0.7rem] uppercase tracking-[0.3em] text-[#1F2520]/45 dark:text-zinc-500 font-sans">
                   {paper.year}
                   {paper.status && (
-                    <><span className="mx-2 opacity-40">·</span><span>{paper.status}</span></>
+                    <>
+                      <span className="mx-2 opacity-40">·</span>
+                      <span>{paper.status}</span>
+                    </>
                   )}
                 </span>
 
@@ -56,9 +60,14 @@ export function PapersViewer({ papers }: { papers: Paper[] }) {
                   {paper.excerpt}
                 </p>
 
-                <span className="inline-block mt-2 text-[0.78rem] font-sans tracking-wide text-[#1F2520]/35 dark:text-zinc-600 group-hover:text-[#1F2520]/60 dark:group-hover:text-zinc-400 group-hover:translate-x-1 transition-all duration-200">
-                  Read →
-                </span>
+                <a
+                  href={paper.pdfUrl}
+                  download
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-block mt-2 text-[0.78rem] font-sans tracking-wide text-[#1F2520]/35 dark:text-zinc-600 group-hover:text-[#1F2520]/60 dark:group-hover:text-zinc-400 group-hover:translate-x-1 transition-all duration-200"
+                >
+                  Download PDF ↓
+                </a>
               </Link>
             ))}
           </motion.div>
@@ -81,7 +90,9 @@ export function PapersViewer({ papers }: { papers: Paper[] }) {
           </span>
 
           <button
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            onClick={() =>
+              setPage((p) => Math.min(totalPages - 1, p + 1))
+            }
             disabled={page === totalPages - 1}
             className="text-[0.78rem] font-sans uppercase tracking-[0.25em] text-[#1F2520]/40 dark:text-[#98A869] hover:text-[#1F2520]/70 dark:hover:text-zinc-400 disabled:opacity-20 transition-all duration-200 hover:translate-x-0.5"
           >
