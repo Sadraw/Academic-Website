@@ -1,121 +1,179 @@
+"use client";
 
-// contact page 
 import Link from "next/link";
-import { EmailCopy } from "../components/EmailCopy";
 import { motion } from "framer-motion";
-
+import { EmailCopy } from "../components/EmailCopy";
 
 export default function ContactPage() {
-    
- return (
-    <main 
-    className=
-    " flex flex-col items-center min-h-screen w-full px-8 py-16 font-serif bg-[#98A869] dark:bg-zinc-900 transition-colors duration-300"
+
+  return (
+
+    <main
+      className="
+        min-h-screen
+        w-full
+        px-8
+        py-16
+        bg-[#98A869]
+        dark:bg-zinc-900
+        transition-colors duration-500
+        font-serif
+        flex
+        flex-col
+        items-center
+      "
     >
 
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.9,
+          ease: "easeOut",
+        }}
+        className="
+          pt-18
+          flex
+          flex-col
+          items-center
+          text-center
+          max-w-2xl
+        "
+      >
 
-
-        {/* Content Container  */}
-
-        <div className="flex flex-col items-center gap-1 pt-12">
-
-        {/* Title  */}
-
+        {/* title */}
         <h1
-            className="text-[2.3rem] mb-2 mr-[3.2rem] tracking-[1px] ">
+          className="
+            text-[2.5rem]
+            tracking-[1px]
+            mb-4
+          "
+        >
 
-            <Link
-                href="/"
-                className="text-[#1F2520] dark:text-[#98A869] no-underline hover:opacity-65 transition">
-
-            
-                    &larr; Contact
-            </Link>
+          <Link
+            href="/"
+            className="
+              text-[#1F2520]
+              dark:text-zinc-100
+              no-underline
+              hover:opacity-65
+              transition
+            "
+          >
+            &larr; Contact
+          </Link>
 
         </h1>
 
-        {/* Description  */}
-
-        <p 
-        className="
-        text-[1.1rem]
-        font-serif
-        leading-relaxed
-        tracking-wide
-        text-[#383737]
-        dark:text-zinc-100
-        group
-        relative
-        overflow-hidden
-        cursor-default
-        " 
-        >
-            <span className="relative z-10">
-
-                Open to Research Collaborations · Digital Projects · Interdisciplinary Work 
-
-            </span>
-
-                <span
-  className="
-    pointer-events-none
-    absolute
-    left-0
-    top-1/2
-    h-[45%]
-    w-full
-    -translate-y-1/2
-    -translate-x-full
-    bg-linear-to-r
-    from-transparent
-    via-white/70
-    dark:via-white/70
-    to-transparent
-    blur-sm
-    opacity-15
-    group-hover:opacity-50
-    group-hover:translate-x-full
-    transition-all
-    duration-4500
-    ease-out
-  "
-    >
-        
-    </span>
-            
-</p>
-
-
-        <div 
-        className=
-        "flex items-center gap-3 mt-1"
+        {/* subtitle */}
+        <p
+          className="
+            text-[1.05rem]
+            leading-relaxed
+            tracking-wide
+            text-[#383737]
+            dark:text-zinc-300
+            relative
+            group
+            overflow-hidden
+            inline-block
+            cursor-default
+          "
         >
 
-            <EmailCopy/>
+          <span className="relative z-10">
+            Research · Media · Digital Culture · Collaboration
+          </span>
+
+          {/* glow sweep */}
+          <span
+            className="
+              pointer-events-none
+              absolute
+              left-0
+              top-1/2
+              h-[45%]
+              w-full
+              -translate-y-1/2
+              -translate-x-full
+              bg-linear-to-r
+              from-transparent
+              via-white/60
+              to-transparent
+              blur-sm
+              opacity-10
+              group-hover:opacity-40
+              group-hover:translate-x-full
+              transition-all
+              duration-1000
+              ease-out
+            "
+          />
+
+        </p>
+
+        {/* main text */}
+        <div className="mt-14 space-y-7">
+
+          <p
+            className="
+              text-[1.15rem]
+              leading-[2rem]
+              tracking-[0.2px]
+              text-[#1F2520]
+              dark:text-zinc-100
+            "
+          >
+            If you'd like to talk about research,
+            digital media, discourse, visual culture,
+            or collaborative projects,
+            feel free to reach out.
+          </p>
+
+          <p
+            className="
+              text-[1rem]
+              leading-relaxed
+              tracking-wide
+              text-[#383737]
+              dark:text-zinc-400
+            "
+          >
+            I’m especially interested in interdisciplinary work,
+            experimental digital projects,
+            and conversations around online spaces,
+            identity, and contemporary culture.
+          </p>
 
         </div>
 
-        <p 
-        className=
-        "mt-4 mb-5 max-auto text-[0.8rem] text-[#1F2520] font-serif dark:text-zinc-100 no-underline"
+        {/* email */}
+        <div className="mt-12">
+          <EmailCopy />
+        </div>
+
+        {/* location */}
+        <a
+          href="https://www.google.com/search?q=Graz+Austria"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="
+            mt-10
+            text-[0.82rem]
+            tracking-[0.22em]
+            uppercase
+            font-sans
+            text-[#1F2520]/60
+            dark:text-zinc-500
+            hover:opacity-70
+            transition
+          "
         >
-            <a
-            href=
-            "https://www.google.com/search?q=graz&oq=graz&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDsyBggCECMYJzIGCAMQRRhBMgYIBBBFGDwyBggFEEUYPDIGCAYQRRg9MgYIBxBFGEHSAQc1OTdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
-            target="_blank"  rel="noopener noreferrer"
-            className="mb-[0.8rem] mr-5.5 tracking-[1px] leading-relaxed ">
-            
-                📍Graz · Austria
+          Graz · Austria
+        </a>
 
-            </a>
-            
-        </p>
-
-
-</div>
+      </motion.div>
 
     </main>
- )   
-    
-    
+  );
 }
