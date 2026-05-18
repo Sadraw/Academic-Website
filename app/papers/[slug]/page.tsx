@@ -3,6 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
+import PerformingResistanceSlideshow from "@/app/components/PerformingResistance";";
+
 
 export default async function PaperPage({
   params,
@@ -31,20 +33,28 @@ export default async function PaperPage({
   const { data, content } = matter(fileContent);
 
   const processed = await remark().use(html).process(content);
+  const isSlideshowPaper = slug === "performing-resistance";
 
-  return (
-    <main
-      style={{
-        maxWidth: "750px",
-        margin: "0 auto",
-        padding: "4rem 1.5rem",
-        fontFamily: "serif",
-        lineHeight: "1.8",
-      }}
-    >
-      <h1>{data.title}</h1>
+return (
+  <main
+    style={{
+      maxWidth: "750px",
+      margin: "0 auto",
+      padding: "4rem 1.5rem",
+      fontFamily: "serif",
+      lineHeight: "1.8",
+    }}
+  >
+    <h1>{data.title}</h1>
 
-      <div dangerouslySetInnerHTML={{ __html: processed.toString() }} />
-    </main>
-  );
-}
+    {isSlideshowPaper ? (
+      <div style={{ marginTop: "2rem" }}>
+        <PerformingResistanceSlideshow />
+      </div>
+    ) : (
+      <div
+        dangerouslySetInnerHTML={{ __html: processed.toString() }}
+      />
+    )}
+  </main>
+)};
