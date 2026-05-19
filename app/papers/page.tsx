@@ -28,6 +28,7 @@ export default function PapersPage() {
   papers.sort((a, b) => Number(b.year) - Number(a.year));
 
   return (
+    
     <main className="
       min-h-screen w-full
       px-8 py-20
@@ -36,6 +37,7 @@ export default function PapersPage() {
       font-serif text-center
     ">
         <LeafBackground />
+        
 
       
       <div className="mt-5">
