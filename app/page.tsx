@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -62,17 +62,33 @@ const navItems = [
 export default function Home() {
   const [reflection, setReflection] = useState(reflections[0]);
   const [message, setMessage] = useState(systemMessages[0]);
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [clicks, setClicks] = useState(0);
   const [secret, setSecret] = useState(false);
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const smoothX = useSpring(mouseX, {
+    damping: 25,
+    stiffness: 120
+  });
+
+  const smoothY = useSpring(mouseY, {
+    damping: 25,
+    stiffness: 120
+  });
+
   useEffect(() => {
     const r = setInterval(() => {
-      setReflection(reflections[Math.floor(Math.random() * reflections.length)]);
+      setReflection(
+        reflections[Math.floor(Math.random() * reflections.length)]
+      );
     }, 5000);
 
     const m = setInterval(() => {
-      setMessage(systemMessages[Math.floor(Math.random() * systemMessages.length)]);
+      setMessage(
+        systemMessages[Math.floor(Math.random() * systemMessages.length)]
+      );
     }, 7000);
 
     return () => {
@@ -83,20 +99,34 @@ export default function Home() {
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      setCursor({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
+
     window.addEventListener("mousemove", move);
+
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [mouseX, mouseY]);
 
   const particles = useMemo(
     () =>
-      Array.from({ length: 30 }).map((_, i) => ({
+      Array.from({ length: 50 }).map((_, i) => ({
         id: i,
         left: Math.random() * 100,
-        delay: Math.random() * 10,
-        duration: 15 + Math.random() * 20,
-        size: 1 + Math.random() * 3
+        delay: Math.random() * 12,
+        duration: 15 + Math.random() * 25,
+        size: 1 + Math.random() * 4
+      })),
+    []
+  );
+
+  const waves = useMemo(
+    () =>
+      Array.from({ length: 7 }).map((_, i) => ({
+        id: i,
+        top: 10 + i * 12,
+        duration: 12 + i * 4,
+        opacity: 0.04 + i * 0.015
       })),
     []
   );
@@ -104,19 +134,81 @@ export default function Home() {
   const handleSecret = () => {
     const next = clicks + 1;
     setClicks(next);
-    if (next >= 5) setSecret(true);
+
+    if (next >= 5) {
+      setSecret(true);
+    }
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#0c0d0c] text-zinc-200 font-serif">
+    <main className="relative min-h-screen overflow-hidden bg-[#071019] text-zinc-200 font-serif">
 
-      {/* Cursor Glow */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 opacity-40"
-        style={{
-          background: `radial-gradient(400px at ${cursor.x}px ${cursor.y}px, rgba(152,168,105,0.10), transparent 80%)`
-        }}
-      />
+      {/* Ocean Background */}
+      <div className="absolute inset-0 overflow-hidden">
+
+        {/* Base Ocean Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08131d] via-[#0a1c2c] to-[#04070d]" />
+
+        {/* Animated Waves */}
+        {waves.map((wave) => (
+          <motion.div
+            key={wave.id}
+            animate={{
+              x: ["-10%", "10%", "-10%"],
+              y: [0, -20, 0],
+              scale: [1, 1.05, 1]
+            }}
+            transition={{
+              duration: wave.duration,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute left-[-20%] w-[140%] h-52 rounded-[100%]"
+            style={{
+              top: `${wave.top}%`,
+              opacity: wave.opacity,
+              background:
+                "radial-gradient(circle at center, rgba(80,120,200,0.25), transparent 70%)",
+              filter: "blur(60px)"
+            }}
+          />
+        ))}
+
+        {/* Moving Water Texture */}
+        <motion.div
+          animate={{
+            backgroundPosition: ["0% 0%", "100% 100%"]
+          }}
+          transition={{
+            duration: 40,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.12) 1px, transparent 1px)",
+            backgroundSize: "120px 120px"
+          }}
+        />
+
+        {/* Cursor Water Glow */}
+        <motion.div
+          className="pointer-events-none absolute w-[700px] h-[700px] rounded-full"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+            background:
+              "radial-gradient(circle, rgba(100,160,255,0.12), transparent 70%)",
+            filter: "blur(80px)"
+          }}
+        />
+
+        {/* Deep Fog */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+      </div>
 
       {/* Grain */}
       <div className="pointer-events-none fixed inset-0 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -127,14 +219,18 @@ export default function Home() {
           <motion.div
             key={p.id}
             initial={{ y: "110vh", opacity: 0 }}
-            animate={{ y: "-20vh", opacity: [0, 0.4, 0] }}
+            animate={{
+              y: "-20vh",
+              x: [0, 20, -20, 0],
+              opacity: [0, 0.5, 0]
+            }}
             transition={{
               duration: p.duration,
               delay: p.delay,
               repeat: Infinity,
               ease: "linear"
             }}
-            className="absolute rounded-full bg-[#98A869]/20 blur-sm"
+            className="absolute rounded-full bg-blue-200/20 blur-sm"
             style={{
               left: `${p.left}%`,
               width: p.size,
@@ -148,7 +244,14 @@ export default function Home() {
       {floatingQuotes.map((q, i) => (
         <motion.div
           key={q}
-          animate={{ opacity: 0.04 }}
+          animate={{
+            opacity: [0.02, 0.06, 0.02],
+            y: [0, -10, 0]
+          }}
+          transition={{
+            duration: 10 + i * 2,
+            repeat: Infinity
+          }}
           className="pointer-events-none absolute text-5xl italic text-zinc-100 whitespace-nowrap"
           style={{
             top: `${10 + i * 14}%`,
@@ -161,57 +264,103 @@ export default function Home() {
 
       {/* System Message */}
       <motion.div
-        className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-[#98A869]/70 font-mono"
+        className="absolute top-6 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-blue-200/70 font-mono z-20"
+        animate={{ opacity: [0.4, 1, 0.4] }}
+        transition={{ duration: 4, repeat: Infinity }}
       >
         {message}
       </motion.div>
 
       {/* HERO */}
-      <section className="flex min-h-screen flex-col items-center justify-center text-center px-6 relative z-10">
+      <section className="relative z-10 flex min-h-screen flex-col items-center justify-center text-center px-6">
 
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#98A869] font-mono mb-8">
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-[10px] uppercase tracking-[0.4em] text-blue-200 font-mono mb-8"
+        >
           Research · Fragments · Signals · Ruins
-        </p>
+        </motion.p>
 
-        <h1
+        <motion.h1
           onClick={handleSecret}
-          className="text-5xl md:text-7xl text-zinc-100 cursor-pointer"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-5xl md:text-7xl text-zinc-100 cursor-pointer select-none"
+          style={{
+            textShadow: "0 0 35px rgba(120,170,255,0.15)"
+          }}
         >
           Sadra Daneshmand
-        </h1>
+        </motion.h1>
 
-        <div className="w-40 h-px bg-[#98A869]/30 mx-auto mt-8" />
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: 160 }}
+          transition={{ delay: 0.4 }}
+          className="h-px bg-blue-200/30 mx-auto mt-8"
+        />
 
-        <p className="mt-10 text-xl italic text-zinc-300 max-w-2xl">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-10 text-xl italic text-zinc-300 max-w-2xl"
+        >
           A digital archive of language, memory, and emotional residue.
-        </p>
+        </motion.p>
 
-        <p className="mt-6 text-zinc-400 max-w-3xl">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-6 text-zinc-400 max-w-3xl"
+        >
           Discourse · Media · Digital culture · Fragmented identity ·
           Online melancholy · Performative politics
-        </p>
+        </motion.p>
 
-        <a
+        <motion.a
           href="#nav"
-          className="mt-14 border border-[#98A869]/30 px-8 py-4 uppercase tracking-[0.3em] text-[#98A869] hover:bg-white/5"
+          whileHover={{
+            scale: 1.04,
+            boxShadow: "0 0 30px rgba(120,170,255,0.2)"
+          }}
+          className="mt-14 border border-blue-200/20 px-8 py-4 uppercase tracking-[0.3em] text-blue-100 hover:bg-white/5 transition"
         >
           Enter Archive →
-        </a>
+        </motion.a>
       </section>
 
       {/* NAVIGATION */}
-      <section id="nav" className="relative z-10 px-6 py-28 border-t border-white/5">
+      <section
+        id="nav"
+        className="relative z-10 px-6 py-28 border-t border-white/5"
+      >
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
           {navItems.map((item) => (
-            <Link
+            <motion.div
+              whileHover={{
+                y: -8,
+                borderColor: "rgba(180,220,255,0.35)"
+              }}
               key={item.href}
-              href={item.href}
-              className="border border-white/10 p-8 hover:border-[#98A869]/40 hover:bg-white/5 transition"
             >
-              <h2 className="text-2xl italic text-zinc-100">{item.label}</h2>
-              <p className="mt-4 text-zinc-400">{item.sub}</p>
-            </Link>
+              <Link
+                href={item.href}
+                className="block border border-white/10 p-8 bg-white/[0.02] backdrop-blur-md transition"
+              >
+                <h2 className="text-2xl italic text-zinc-100">
+                  {item.label}
+                </h2>
+
+                <p className="mt-4 text-zinc-400">
+                  {item.sub}
+                </p>
+              </Link>
+            </motion.div>
           ))}
 
         </div>
@@ -219,7 +368,7 @@ export default function Home() {
 
       {/* REFLECTION */}
       <section className="py-28 text-center relative z-10">
-        <p className="text-xs uppercase tracking-[0.4em] text-[#98A869]">
+        <p className="text-xs uppercase tracking-[0.4em] text-blue-200">
           Current Reflection
         </p>
 
@@ -227,8 +376,8 @@ export default function Home() {
           <motion.p
             key={reflection}
             className="mt-10 text-xl italic text-zinc-300 max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
             “{reflection}”
@@ -239,9 +388,14 @@ export default function Home() {
       {/* SECRET */}
       <AnimatePresence>
         {secret && (
-          <motion.div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center text-center px-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center text-center px-6"
+          >
             <div>
-              <p className="text-[#98A869] uppercase tracking-[0.4em] text-xs">
+              <p className="text-blue-200 uppercase tracking-[0.4em] text-xs">
                 Hidden Archive
               </p>
 
@@ -251,7 +405,7 @@ export default function Home() {
 
               <button
                 onClick={() => setSecret(false)}
-                className="mt-10 border border-[#98A869]/30 px-6 py-3 uppercase tracking-[0.3em]"
+                className="mt-10 border border-blue-200/30 px-6 py-3 uppercase tracking-[0.3em]"
               >
                 Return
               </button>
@@ -259,7 +413,6 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </main>
   );
 }
