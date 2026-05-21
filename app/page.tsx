@@ -5,12 +5,33 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 const reflections = [
-  "Listening to Burial at 3AM.",
-  "Reading Butler while sleep deprived.",
-  "Thinking about abandoned internet forums.",
-  "Researching emotional residue in digital spaces.",
-  "Attempting to archive digital ghosts.",
-  "Waiting for Godot in browser tabs."
+"Refreshing pages that no longer exist.",
+"Reading theory like it’s weather forecasted doom.",
+"Saving screenshots of conversations that meant something once.",
+"Watching cursor blink like it knows more than I do.",
+"Opening tabs as if they are unfinished thoughts.",
+"Trying to remember why I came here in the first place.",
+"Downloading memories I will never open again.",
+"Thinking in footnotes instead of sentences.",
+"Rewriting silence into academic language.",
+"Scrolling through versions of myself I don’t recognize.",
+"Leaving messages for nobody in particular.",
+"Treating late-night internet as field research.",
+"Confusing nostalgia with data corruption.",
+"Watching text decay into meaning.",
+"Calling it research when it is actually disappearance.",
+"Reading too much into loading screens.",
+"Waiting for meaning to buffer.",
+"Turning emotional static into methodology.",
+"Writing like the archive is judging me.",
+"Checking if the internet remembers me differently today.",
+"Storing feelings in unnamed folders.",
+"Deleting things I don’t fully understand yet.",
+"Searching for patterns in broken links.",
+"Listening to silence between network requests.",
+"Treating memory like a broken API.",
+"Assuming everything is temporary except the feeling it leaves.",
+"Watching digital space become emotional geography."
 ];
 
 const systemMessages = [
@@ -23,12 +44,12 @@ const systemMessages = [
 ];
 
 const floatingQuotes = [
-  "nothing to be done",
-  "the archive remembers",
-  "language leaves scars",
-  "performance survives",
-  "history performs itself",
-  "silence is political"
+  "Nothing to be Done",
+  "The Archive Remembers",
+  "Language Leaves Scars",
+  "Performance Survives",
+  "History Performs Itself",
+  "Silence is Political"
 ];
 
 const navItems = [
@@ -400,7 +421,7 @@ export default function Home() {
               </p>
 
               <h2 className="text-4xl mt-10 text-zinc-100">
-                nothing remains archived forever
+                Nothing Remains Archived Forever
               </h2>
 
               <button

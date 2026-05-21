@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { LightboxImage } from "../components/LightboxImage";
 import { Navbar } from "../components/Navbar";
-import { OceanBackground } from "../components/OceanBackground";
 
 export default function MediaPage() {
   const [open, setOpen] = useState(false);
@@ -28,7 +27,6 @@ export default function MediaPage() {
     >
 
       {/* 🔝 NAVBAR */}
-        <OceanBackground />
       <div className="mt-10  ">
       <Navbar />
 
