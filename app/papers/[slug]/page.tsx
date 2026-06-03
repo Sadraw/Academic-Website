@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import PerformingResistanceSlideshow from "@/app/components/PerformingResistance";";
+import PerformingResistanceSlideshow from "@/app/components/PerformingResistance";
 
 
 export default async function PaperPage({
