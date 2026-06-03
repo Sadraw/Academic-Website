@@ -2,10 +2,43 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { videos } from "./videos.data";
 import { Navbar } from "@/app/components/Navbar";
+
+/* ---------------- GLITCH LAYERS ---------------- */
+
+function GlitchFX() {
+  return (
+    <>
+      {/* scanlines */}
+      <div className="pointer-events-none fixed inset-0 z-40 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:100%_3px]" />
+
+      {/* noise */}
+      <div className="pointer-events-none fixed inset-0 z-40 opacity-[0.05] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+      {/* RGB flicker */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-50 mix-blend-screen"
+        animate={{
+          opacity: [0.05, 0.12, 0.03, 0.08],
+          x: [0, 1, -1, 0],
+        }}
+        transition={{
+          duration: 0.25,
+          repeat: Infinity,
+        }}
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(255,0,80,0.05), rgba(0,255,255,0.04), rgba(120,180,255,0.03))",
+        }}
+      />
+    </>
+  );
+}
+
+/* ---------------- PAGE ---------------- */
 
 export default function VideoPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -16,8 +49,8 @@ export default function VideoPage() {
     scrollRef.current.scrollBy({
       left:
         dir === "left"
-          ? -scrollRef.current.offsetWidth * 0.9
-          : scrollRef.current.offsetWidth * 0.9,
+          ? -scrollRef.current.offsetWidth * 0.85
+          : scrollRef.current.offsetWidth * 0.85,
       behavior: "smooth",
     });
   };
@@ -32,104 +65,115 @@ export default function VideoPage() {
     <button
       onClick={() => scroll(direction)}
       className={`
-        absolute
-        top-1/2
-        -translate-y-1/2
-        z-10
-        p-3
-        rounded-full
-        backdrop-blur
-        bg-black/30
-        text-white
-        dark:bg-white/80
-        dark:text-black/30
-        transition-all
-        duration-200
-        hover:bg-black/60
-        dark:hover:bg-[#98A869]
-        hover:scale-110
-        cursor-pointer
+        absolute top-1/2 -translate-y-1/2 z-20
+        p-3 rounded-full
+        backdrop-blur-md
+        bg-black/40 text-white
+        border border-white/10
+        transition
+        hover:scale-110 hover:bg-black/70
         active:scale-95
-        ${direction === "left" ? "-left-14" : "-right-14"}
+        ${direction === "left" ? "-left-16" : "-right-16"}
       `}
     >
       {icon}
     </button>
   );
 
+  /* floating particles */
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 25 }).map((_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        size: 2 + Math.random() * 3,
+        duration: 10 + Math.random() * 15,
+      })),
+    []
+  );
+
   return (
-    <main className="min-h-screen px-8 py-16 bg-[#98A869] dark:bg-zinc-900 font-serif text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut", delay: 0.5 }}
-        className="pt-12 flex flex-col items-center"
-      >
+    <main className="relative min-h-screen overflow-hidden bg-black text-zinc-200 font-serif">
 
-          <Navbar />
-          
-        
+      {/* GLITCH LAYERS */}
+      <GlitchFX />
 
-        <h1 className="text-[2.3rem] mt-6 mb-3 tracking-[1px]">
-          <Link
-            href="/media"
-            className="text-[#1F2520] dark:text-[#98A869] hover:opacity-65 transition"
-          >
-            ← Videos
-          </Link>
-        </h1>
+      {/* AMBIENT BACKGROUND */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#04060a] via-[#050b14] to-black" />
 
-
-        {/* Subtitle */}
-        <p
-          className="
-            text-[1.1rem]
-            leading-relaxed
-            tracking-wide
-            text-[#383737]
-            dark:text-zinc-100
-            group
-            relative
-            overflow-hidden
-            cursor-default
-            mb-6
-          "
-        >
-          <span className="relative z-10">
-            Motion Studies, Fragments, and Recorded Time.
-          </span>
-
-          <span
-            className="
-              pointer-events-none
-              absolute
-              left-0
-              top-1/2
-              h-[45%]
-              w-full
-              -translate-y-1/2
-              -translate-x-full
-              bg-linear-to-r
-              from-transparent
-              via-white/60
-              to-transparent
-              blur-sm
-              opacity-10
-              group-hover:opacity-40
-              group-hover:translate-x-full
-              transition-all
-              duration-1000
-              ease-out
-            "
+      {/* PARTICLES */}
+      <div className="pointer-events-none absolute inset-0">
+        {particles.map((p) => (
+          <motion.div
+            key={p.id}
+            className="absolute rounded-full bg-blue-300/20 blur-sm"
+            style={{
+              left: `${p.left}%`,
+              width: p.size,
+              height: p.size,
+            }}
+            animate={{
+              y: ["110vh", "-10vh"],
+              opacity: [0, 0.5, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              repeat: Infinity,
+              ease: "linear",
+            }}
           />
-        </p>
+        ))}
+      </div>
+
+      {/* CURSOR GLOW */}
+      <motion.div
+        className="pointer-events-none fixed w-[600px] h-[600px] rounded-full z-10"
+        animate={{
+          opacity: [0.08, 0.15, 0.08],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+        }}
+        style={{
+          background:
+            "radial-gradient(circle, rgba(120,180,255,0.12), transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      {/* CONTENT */}
+      <div className="relative z-20 min-h-screen px-8 py-16 text-center">
+
+        <Navbar />
+
+        {/* HEADER */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+          className="pt-12 flex flex-col items-center"
+        >
+          <h1 className="text-[2.5rem] mt-6 mb-3 tracking-wide">
+            <Link
+              href="/media"
+              className="text-white/80 hover:text-white transition"
+            >
+              ← Videos
+            </Link>
+          </h1>
+
+          <p className="text-sm text-zinc-400 tracking-wide max-w-xl">
+            Motion studies, fragments, and recorded time collapsing into signal.
+          </p>
+        </motion.div>
 
         {/* CAROUSEL */}
         <motion.div
-          initial={{ opacity: 0, y: -25 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.9 }}
-          className="relative w-full max-w-3xl"
+          transition={{ delay: 0.3 }}
+          className="relative w-full max-w-4xl mx-auto mt-16"
         >
           <ArrowButton direction="left" icon={<ChevronLeft size={26} />} />
           <ArrowButton direction="right" icon={<ChevronRight size={26} />} />
@@ -138,48 +182,50 @@ export default function VideoPage() {
           <div
             ref={scrollRef}
             className="
-              flex
-              gap-10
-              overflow-x-auto
-              scroll-smooth
-              snap-x
-              snap-mandatory
-              hide-scrollbar
-              px-6
+              flex gap-10 overflow-x-auto scroll-smooth
+              snap-x snap-mandatory px-6 hide-scrollbar
             "
           >
             {videos.map((video, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.3 }}
                 className="shrink-0 w-full snap-center"
+                whileHover={{ scale: 1.01 }}
               >
-                {/* SMALLER OUTER FRAME */}
-                <div className="w-full rounded-lg bg-black/10 dark:bg-white/5 p-2 shadow-xl">
-                  
-                  {/* VIDEO */}
-                  <div className="w-full aspect-[16/9] flex items-center justify-center">
-                    <iframe
-                      className="w-[95%] h-[95%] rounded-md"
-                      src={`https://www.youtube.com/embed/${video.id}`}
-                      title={video.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                {/* FRAME */}
+                <div className="relative rounded-xl p-[1px] bg-gradient-to-r from-blue-500/20 via-white/10 to-blue-500/20">
+                  <div className="bg-black/60 backdrop-blur-md rounded-xl p-2 shadow-2xl">
+                    <div className="aspect-video w-full">
+                      <iframe
+                        className="w-full h-full rounded-lg"
+                        src={`https://www.youtube.com/embed/${video.id}`}
+                        title={video.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
                   </div>
                 </div>
 
                 {/* TEXT */}
-                <div className="mt-4 text-[#383737] dark:text-zinc-100">
-                  <p className="text-[1.2rem]">{video.title}</p>
-                  <p className="text-sm opacity-70">{video.date}</p>
+                <div className="mt-4">
+                  <p className="text-lg text-white/90">{video.title}</p>
+                  <p className="text-sm text-zinc-500">{video.date}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </motion.div>
-      </motion.div>
+
+        {/* subtle flicker text */}
+        <motion.div
+          className="mt-20 text-xs tracking-[0.4em] uppercase text-white/30"
+          animate={{ opacity: [0.2, 0.6, 0.2] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          SIGNAL ARCHIVE · VIDEO MEMORY SYSTEM
+        </motion.div>
+      </div>
     </main>
   );
-}
+}g
