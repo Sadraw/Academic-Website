@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { ThemeToggle } from "./components/ThemeToggle";
 import logo from "@/public/logo.png";
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,7 @@ export default function RootLayout({
           {children}
         </Providers>
 
+        <Analytics />
       </body>
     </html>
   );
